@@ -1,58 +1,83 @@
-import Nav from '../components/Nav'
-import TodoListItem from '../components/TodoListItem'
-import AddTask from '../components/AddTask'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import Nav from "../components/Nav";
+import TodoListItem from "../components/TodoListItem";
+import AddTask from "../components/AddTask";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import auth_required from "../middlewares/auth_required";
 
 export default function Home() {
-  const API_BASE_URL = 'https://todo-app-csoc.herokuapp.com/'
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
+    const [profileName, setProfileName] = useState("");
+    const [avatarImage, setAvatarImage] = useState("");
+    const [taskList, setTaskList] = useState([]);
 
-  const [profileName, setProfileName] = useState('')
-  const [avatarImage, setAvatarImage] = useState('')
+    function getTasks() {
+        axios({
+            headers: {
+                Authorization: "Token " + localStorage.getItem("token")
+            },
+            url: API_BASE_URL + "todo/",
+            method: "get"
+        }).then(function (response) {
+            const { data, status } = response;
+            setTaskList(data);
+        });
+    }
 
-  function getTasks() {
-    /***
-     * @todo Fetch the tasks created by the user and display them in the dom.
-     */
-  }
+    const addNewTask = (task) => {
+        const temp = [...taskList, task];
+        setTaskList(temp);
+    };
 
-  useEffect(() => {
-    axios
-      .get(API_BASE_URL + 'auth/profile/', {
-        headers: {
-          Authorization: 'Token ' + localStorage.getItem('token'),
-        },
-      })
-      .then((response) => {
-        setAvatarImage(
-          'https://ui-avatars.com/api/?name=' +
-            response.data.name +
-            '&background=fff&size=33&color=007bff'
-        )
-        setProfileName(response.data.name)
-        getTasks()
-      })
-      .catch((error) => {
-        console.log('Some error occurred')
-      })
-  }, [])
+    const deleteTask = (id) => {
+        let temp = [...taskList];
+        temp = temp.filter((task) => {
+            return task.id != id;
+        });
+        setTaskList(temp);
+    };
 
-  /**
-   * @todo Fetch Task Items form backend and render them using loop
-   */
+    useEffect(() => {
+        auth_required();
+        axios
+            .get(API_BASE_URL + "auth/profile/", {
+                headers: {
+                    Authorization: "Token " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
+                setAvatarImage(
+                    "https://ui-avatars.com/api/?name=" +
+                        response.data.name +
+                        "&background=fff&size=33&color=007bff"
+                );
+                setProfileName(response.data.name);
+                getTasks();
+            })
+            .catch((error) => {
+                console.log("Some error occurred");
+            });
+    }, []);
 
-  return (
-    <div>
-      <Nav profileName={profileName} avatarImage={avatarImage} />
-      <center>
-        <AddTask />
-        <ul className='flex-col mt-9 max-w-sm mb-3 '>
-          <span className='inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full '>
-            Available Tasks
-          </span>
-          <TodoListItem />
-        </ul>
-      </center>
-    </div>
-  )
+    return (
+        <div>
+            <Nav profileName={profileName} avatarImage={avatarImage} />
+            <center>
+                <AddTask addNewTask={addNewTask} />
+                <ul className="flex-col mt-9 max-w-sm mb-3 ">
+                    <span className="inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full ">
+                        Available Tasks
+                    </span>
+                    {taskList.map((task) => (
+                        <TodoListItem
+                            task={task.title}
+                            id={task.id}
+                            key={task.id}
+                            deleteTask={deleteTask}
+                        />
+                    ))}
+                </ul>
+            </center>
+        </div>
+    );
 }

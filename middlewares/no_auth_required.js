@@ -1,3 +1,5 @@
-/***
- * @todo Redirect the user to main page if token is present.
- */
+export default function no_auth_required() {
+    if (localStorage.getItem("token")) {
+        window.location.href = "/";
+    }
+}
