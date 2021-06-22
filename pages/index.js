@@ -61,7 +61,7 @@ export default function Home() {
 
     return (
         <div>
-            <Nav profileName={profileName} avatarImage={avatarImage} />
+            <Nav profileName={profileName} avatarImage={avatarImage} page="index" />
             <center>
                 <AddTask addNewTask={addNewTask} />
                 <ul className="flex-col mt-9 max-w-sm mb-3 ">
