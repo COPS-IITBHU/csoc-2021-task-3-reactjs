@@ -60,7 +60,7 @@ export default function TodoListItem(props) {
                 iziToast.destroy();
                 iziToast.success({
                     title: "Success",
-                    message: "Deleted todo"
+                    message: "Updated todo"
                 });
             })
             .catch(function (err) {
