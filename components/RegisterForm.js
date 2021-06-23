@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import no_auth_required from "../middlewares/no_auth_required";
+import iziToastMin from "../public/iziToast.min";
 
 export default function RegisterForm() {
     const [firstName, setFirstName] = useState("");
@@ -23,11 +24,17 @@ export default function RegisterForm() {
             username === "" ||
             password === ""
         ) {
-            console.log("Please fill all the fields correctly.");
+            iziToastMin.error({
+                title: "Error",
+                message: "Please fill all the fields correctly."
+            });
             return false;
         }
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-            console.log("Please enter a valid email address.");
+            iziToastMin.error({
+                title: "Error",
+                message: "Please enter a valid email address."
+            });
             return false;
         }
         return true;
@@ -37,7 +44,11 @@ export default function RegisterForm() {
         e.preventDefault();
 
         if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
-            console.log("Please wait...");
+            iziToastMin.destroy();
+            iziToastMin.info({
+                title: "Info",
+                message: "Please wait..."
+            });
 
             const dataForApiRequest = {
                 name: firstName + " " + lastName,
@@ -56,7 +67,11 @@ export default function RegisterForm() {
                     window.location.href = "/";
                 })
                 .catch(function (err) {
-                    console.log("An account using same email or username is already created");
+                    iziToastMin.destroy();
+                    iziToastMin.error({
+                        title: "Error",
+                        message: "An account using same email or username is already created"
+                    });
                 });
         }
     };

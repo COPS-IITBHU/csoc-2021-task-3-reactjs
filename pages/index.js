@@ -4,6 +4,7 @@ import AddTask from "../components/AddTask";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import auth_required from "../middlewares/auth_required";
+import Script from "next/script";
 
 export default function Home() {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -12,16 +13,34 @@ export default function Home() {
     const [taskList, setTaskList] = useState([]);
 
     function getTasks() {
+        iziToast.destroy();
+        iziToast.info({
+            title: "Info",
+            message: "Loading all todos"
+        });
         axios({
             headers: {
                 Authorization: "Token " + localStorage.getItem("token")
             },
             url: API_BASE_URL + "todo/",
             method: "get"
-        }).then(function (response) {
-            const { data, status } = response;
-            setTaskList(data);
-        });
+        })
+            .then(function (response) {
+                const { data, status } = response;
+                setTaskList(data);
+                iziToast.destroy();
+                iziToast.success({
+                    title: "Success",
+                    message: "Loaded all todos successfully"
+                });
+            })
+            .catch(function (err) {
+                iziToast.destroy();
+                iziToast.error({
+                    title: "Error",
+                    message: "An error occured"
+                });
+            });
     }
 
     const addNewTask = (task) => {
@@ -55,12 +74,17 @@ export default function Home() {
                 getTasks();
             })
             .catch((error) => {
-                console.log("Some error occurred");
+                iziToast.destroy();
+                iziToast.error({
+                    title: "Error",
+                    message: "An error occured"
+                });
             });
     }, []);
 
     return (
         <div>
+            <Script src="/iziToast.min.js" />
             <Nav profileName={profileName} avatarImage={avatarImage} page="index" />
             <center>
                 <AddTask addNewTask={addNewTask} />

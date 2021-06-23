@@ -3,22 +3,26 @@
 @tailwind utilities;
 
 .hideme {
-  display: none !important;
+    display: none !important;
 }
 
 .todo-edit-task-input,
 .todo-add-task-input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  max-width: 300px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    max-width: 300px;
 }
 
 .todo-update-task,
 .todo-add-task {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .todo-task {
-  max-width: 260px;
+    max-width: 260px;
+}
+
+body {
+    min-height: 100vh;
 }

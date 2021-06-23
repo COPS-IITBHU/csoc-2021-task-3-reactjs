@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import iziToastMin from "../public/iziToast.min";
 
 export default function TodoListItem(props) {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -21,16 +22,29 @@ export default function TodoListItem(props) {
         })
             .then(function ({ data, status }) {
                 props.deleteTask(id);
+                iziToastMin.destroy();
+                iziToastMin.success({
+                    title: "Success",
+                    message: "Deleted todo"
+                });
             })
             .catch(function (error) {
-                console.log("An error occurred");
+                iziToastMin.destroy();
+                iziToastMin.error({
+                    title: "Error",
+                    message: "An error occurred"
+                });
             });
     };
 
     const updateTask = (id) => {
         const todoText = task.trim();
         if (!todoText) {
-            console.log("Enter valid task");
+            iziToastMin.destroy();
+            iziToastMin.error({
+                title: "Error",
+                message: "Enter some text"
+            });
             return;
         }
         axios({
@@ -43,9 +57,18 @@ export default function TodoListItem(props) {
         })
             .then(function ({ data, status }) {
                 setEditMode(false);
+                iziToastMin.destroy();
+                iziToastMin.success({
+                    title: "Success",
+                    message: "Deleted todo"
+                });
             })
             .catch(function (err) {
-                console.log("An error occurred");
+                iziToastMin.destroy();
+                iziToastMin.error({
+                    title: "Error",
+                    message: "An error occurred"
+                });
             });
     };
 

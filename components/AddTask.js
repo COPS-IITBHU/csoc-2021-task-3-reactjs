@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import iziToastMin from "../public/iziToast.min";
 
 export default function AddTask(props) {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -8,6 +9,11 @@ export default function AddTask(props) {
         const todoText = value.trim();
 
         if (!todoText) {
+            iziToastMin.destroy();
+            iziToastMin.error({
+                title: "Error",
+                message: "Enter some text"
+            });
             return;
         }
 
@@ -29,10 +35,19 @@ export default function AddTask(props) {
                 }).then(function ({ data, status }) {
                     const newTask = data[data.length - 1];
                     props.addNewTask(newTask);
+                    iziToastMin.destroy();
+                    iziToastMin.success({
+                        title: "Success",
+                        message: "Added new todo"
+                    });
                 });
             })
             .catch(function (err) {
-                console.log("An error occurred");
+                iziToastMin.destroy();
+                iziToastMin.error({
+                    title: "Error",
+                    message: "An error occurred"
+                });
             });
     };
     return (

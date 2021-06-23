@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import no_auth_required from "../middlewares/no_auth_required";
+import iziToastMin from "../public/iziToast.min";
 
 export default function LoginForm() {
     const [password, setPassword] = useState("");
@@ -16,9 +17,17 @@ export default function LoginForm() {
         e.preventDefault();
 
         if (username == "" || password == "") {
-            console.log("Enter valid username and password");
+            iziToastMin.destroy();
+            iziToastMin.error({
+                title: "Error",
+                message: "Please fill all the fields correctly."
+            });
         } else {
-            console.log("Please wait...");
+            iziToastMin.destroy();
+            iziToastMin.info({
+                title: "Info",
+                message: "Please wait..."
+            });
             const dataForApiRequest = {
                 username: username,
                 password: password
@@ -34,7 +43,11 @@ export default function LoginForm() {
                     window.location.href = "/";
                 })
                 .catch(function (err) {
-                    console.log("Either username or password is incorrect");
+                    iziToastMin.destroy();
+                    iziToastMin.error({
+                        title: "Error",
+                        message: "Either username or password is incorrect"
+                    });
                 });
         }
     };
