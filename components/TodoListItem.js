@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import iziToastMin from "../public/iziToast.min";
+// import iziToast from "../static/iziToast.min";
 
 export default function TodoListItem(props) {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -22,15 +22,15 @@ export default function TodoListItem(props) {
         })
             .then(function ({ data, status }) {
                 props.deleteTask(id);
-                iziToastMin.destroy();
-                iziToastMin.success({
+                iziToast.destroy();
+                iziToast.success({
                     title: "Success",
                     message: "Deleted todo"
                 });
             })
             .catch(function (error) {
-                iziToastMin.destroy();
-                iziToastMin.error({
+                iziToast.destroy();
+                iziToast.error({
                     title: "Error",
                     message: "An error occurred"
                 });
@@ -40,8 +40,8 @@ export default function TodoListItem(props) {
     const updateTask = (id) => {
         const todoText = task.trim();
         if (!todoText) {
-            iziToastMin.destroy();
-            iziToastMin.error({
+            iziToast.destroy();
+            iziToast.error({
                 title: "Error",
                 message: "Enter some text"
             });
@@ -57,15 +57,15 @@ export default function TodoListItem(props) {
         })
             .then(function ({ data, status }) {
                 setEditMode(false);
-                iziToastMin.destroy();
-                iziToastMin.success({
+                iziToast.destroy();
+                iziToast.success({
                     title: "Success",
                     message: "Deleted todo"
                 });
             })
             .catch(function (err) {
-                iziToastMin.destroy();
-                iziToastMin.error({
+                iziToast.destroy();
+                iziToast.error({
                     title: "Error",
                     message: "An error occurred"
                 });

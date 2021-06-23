@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import no_auth_required from "../middlewares/no_auth_required";
-import iziToastMin from "../public/iziToast.min";
+// import iziToast from "../static/iziToast.min";
 
 export default function RegisterForm() {
     const [firstName, setFirstName] = useState("");
@@ -24,14 +24,14 @@ export default function RegisterForm() {
             username === "" ||
             password === ""
         ) {
-            iziToastMin.error({
+            iziToast.error({
                 title: "Error",
                 message: "Please fill all the fields correctly."
             });
             return false;
         }
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-            iziToastMin.error({
+            iziToast.error({
                 title: "Error",
                 message: "Please enter a valid email address."
             });
@@ -44,8 +44,8 @@ export default function RegisterForm() {
         e.preventDefault();
 
         if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
-            iziToastMin.destroy();
-            iziToastMin.info({
+            iziToast.destroy();
+            iziToast.info({
                 title: "Info",
                 message: "Please wait..."
             });
@@ -67,8 +67,8 @@ export default function RegisterForm() {
                     window.location.href = "/";
                 })
                 .catch(function (err) {
-                    iziToastMin.destroy();
-                    iziToastMin.error({
+                    iziToast.destroy();
+                    iziToast.error({
                         title: "Error",
                         message: "An account using same email or username is already created"
                     });
