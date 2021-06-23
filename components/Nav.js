@@ -29,11 +29,11 @@ export default function Nav({ profileName = "Loading", avatarImage = "#", page =
                         </li>
                     </ul>
                 ) : (
-                    <div className="inline-block relative w-28">
+                    <div className="inline-block relative">
                         <div className="group inline-block relative">
                             <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                                 <img src={avatarImage} className="mr-2" />
-                                <span className="mr-1">{profileName}</span>
+                                <span className="mr-1">{profileName.slice(0, 8)}</span>
                                 <svg
                                     className="fill-current h-4 w-4"
                                     xmlns="http://www.w3.org/2000/svg"

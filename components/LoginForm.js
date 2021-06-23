@@ -13,12 +13,6 @@ export default function LoginForm() {
     });
 
     const login = (e) => {
-        /***
-         * @todo Complete this function.
-         * @todo 1. Write code for form validation.
-         * @todo 2. Fetch the auth token from backend and login the user.
-         */
-
         e.preventDefault();
 
         if (username == "" || password == "") {
@@ -40,7 +34,7 @@ export default function LoginForm() {
                     window.location.href = "/";
                 })
                 .catch(function (err) {
-                    console.log("An account using same email or username is already created");
+                    console.log("Either username or password is incorrect");
                 });
         }
     };
