@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { useAppContext } from "../context/AppContext";
 
 export default function AddTask(props) {
+    const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [value, setValue] = useState("");
     const addTask = () => {
@@ -18,7 +20,7 @@ export default function AddTask(props) {
 
         axios({
             headers: {
-                Authorization: "Token " + localStorage.getItem("token")
+                Authorization: "Token " + app.token
             },
             url: API_BASE_URL + "todo/create/",
             method: "post",
@@ -27,7 +29,7 @@ export default function AddTask(props) {
             .then(function (response) {
                 axios({
                     headers: {
-                        Authorization: "Token " + localStorage.getItem("token")
+                        Authorization: "Token " + app.token
                     },
                     url: API_BASE_URL + "todo/",
                     method: "get"

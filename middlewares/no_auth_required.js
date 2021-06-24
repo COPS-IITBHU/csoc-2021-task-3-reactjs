@@ -1,7 +1,12 @@
-export default function auth_required(router) {
-    if (localStorage.getItem("token")) {
-        router.push("/");
-        return true;
-    }
-    return false;
+import { useAppContext } from "../context/AppContext";
+import Router from "next/router";
+import { useEffect } from "react";
+
+export function useNoAuthRequired() {
+    const app = useAppContext();
+    useEffect(() => {
+        if (app.token) {
+            Router.replace("/");
+        }
+    });
 }

@@ -2,17 +2,18 @@ import Nav from "../components/Nav";
 import TodoListItem from "../components/TodoListItem";
 import AddTask from "../components/AddTask";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
-import auth_required from "../middlewares/auth_required";
+import { useAuthRequired } from "../middlewares/auth_required";
 import Script from "next/script";
+import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
+    useAuthRequired();
+    const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [profileName, setProfileName] = useState("");
     const [avatarImage, setAvatarImage] = useState("");
     const [taskList, setTaskList] = useState([]);
-    const router = useRouter();
 
     function getTasks() {
         try {
@@ -26,7 +27,7 @@ export default function Home() {
         }
         axios({
             headers: {
-                Authorization: "Token " + localStorage.getItem("token")
+                Authorization: "Token " + app.token
             },
             url: API_BASE_URL + "todo/",
             method: "get"
@@ -63,11 +64,20 @@ export default function Home() {
     };
 
     useEffect(() => {
-        if (auth_required(router)) return;
+        if (!app.token) {
+            try {
+                iziToast.destroy();
+                iziToast.error({
+                    title: "Unauthorized",
+                    message: "You need to login before you can visit."
+                });
+            } catch (e) {}
+            return;
+        }
         axios
             .get(API_BASE_URL + "auth/profile/", {
                 headers: {
-                    Authorization: "Token " + localStorage.getItem("token")
+                    Authorization: "Token " + app.token
                 }
             })
             .then((response) => {

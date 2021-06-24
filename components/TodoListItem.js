@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import { useAppContext } from "../context/AppContext";
 
 export default function TodoListItem(props) {
+    const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [task, setTask] = useState(props.task);
     const [editMode, setEditMode] = useState(false);
@@ -13,7 +15,7 @@ export default function TodoListItem(props) {
     const deleteTask = (id) => {
         axios({
             headers: {
-                Authorization: "Token " + localStorage.getItem("token")
+                Authorization: "Token " + app.token
             },
             url: API_BASE_URL + "todo/" + id + "/",
             method: "delete"
@@ -47,7 +49,7 @@ export default function TodoListItem(props) {
         }
         axios({
             headers: {
-                Authorization: "Token " + localStorage.getItem("token")
+                Authorization: "Token " + app.token
             },
             url: API_BASE_URL + "todo/" + id + "/",
             method: "patch",

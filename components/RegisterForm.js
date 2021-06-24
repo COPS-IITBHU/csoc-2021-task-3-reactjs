@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useAppContext } from "../context/AppContext";
 
 export default function RegisterForm() {
+    const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -58,8 +60,8 @@ export default function RegisterForm() {
                 data: dataForApiRequest
             })
                 .then(function ({ data, status }) {
-                    localStorage.setItem("token", data.token);
-                    router.push("/");
+                    app.login(data.token);
+                    router.replace("/");
                 })
                 .catch(function (err) {
                     iziToast.destroy();
