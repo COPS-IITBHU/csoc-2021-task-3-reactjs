@@ -40,7 +40,12 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
                         <div className="group inline-block relative">
                             <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                                 {avatarImage ? (
-                                    <Image src={avatarImage} height={33} width={33} />
+                                    <Image
+                                        src={avatarImage}
+                                        height={33}
+                                        width={33}
+                                        alt="Profile image"
+                                    />
                                 ) : (
                                     ""
                                 )}

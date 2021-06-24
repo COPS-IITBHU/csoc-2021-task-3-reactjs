@@ -15,11 +15,15 @@ export default function Home() {
     const router = useRouter();
 
     function getTasks() {
-        iziToast.destroy();
-        iziToast.info({
-            title: "Welcome",
-            message: "Loading all todos"
-        });
+        try {
+            iziToast.destroy();
+            iziToast.info({
+                title: "Welcome",
+                message: "Loading all todos"
+            });
+        } catch (e) {
+            console.error(e);
+        }
         axios({
             headers: {
                 Authorization: "Token " + localStorage.getItem("token")

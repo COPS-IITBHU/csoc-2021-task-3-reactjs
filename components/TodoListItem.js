@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-
 import React, { useState } from "react";
+import Image from "next/image";
 import axios from "axios";
-// import iziToast from "../static/iziToast.min";
 
 export default function TodoListItem(props) {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -103,22 +101,22 @@ export default function TodoListItem(props) {
                         style={{ marginRight: "5px" }}
                         type="button"
                         onClick={() => editTask(props.id)}
-                        className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2">
-                        <img
+                        className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 pt-1.5">
+                        <Image
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png"
-                            width="18px"
-                            height="20px"
+                            width={18}
+                            height={20}
                             alt="Edit"
                         />
                     </button>
                     <button
                         type="button"
-                        className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2"
+                        className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 pt-1"
                         onClick={() => deleteTask(props.id)}>
-                        <img
+                        <Image
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"
-                            width="18px"
-                            height="22px"
+                            width={18}
+                            height={22}
                             alt="Delete"
                         />
                     </button>
