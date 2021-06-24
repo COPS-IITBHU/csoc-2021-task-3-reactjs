@@ -63,7 +63,7 @@ export default function Home() {
         setTaskList(temp);
     };
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!app.token) {
             try {
                 iziToast.destroy();
@@ -74,7 +74,7 @@ export default function Home() {
             } catch (e) {}
             return;
         }
-        axios
+        await axios
             .get(API_BASE_URL + "auth/profile/", {
                 headers: {
                     Authorization: "Token " + app.token
@@ -90,11 +90,16 @@ export default function Home() {
                 getTasks();
             })
             .catch((error) => {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "Error",
-                    message: "An error occured"
-                });
+                console.log(error);
+                if (typeof document != "object") {
+                    console.log("An error occurred");
+                } else {
+                    iziToast.destroy();
+                    iziToast.error({
+                        title: "Error",
+                        message: "An error occured"
+                    });
+                }
             });
     }, []);
 
