@@ -1,5 +1,7 @@
-export default function auth_required() {
+export default function auth_required(router) {
     if (!localStorage.getItem("token")) {
-        window.location.href = "/login/";
+        router.push("/login/");
+        return true;
     }
+    return false;
 }

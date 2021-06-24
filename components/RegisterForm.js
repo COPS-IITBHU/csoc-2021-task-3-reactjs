@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import no_auth_required from "../middlewares/no_auth_required";
-// import iziToast from "../static/iziToast.min";
+import { useRouter } from "next/router";
 
 export default function RegisterForm() {
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-
-    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
-
-    useEffect(() => {
-        no_auth_required();
-    });
+    const router = useRouter();
 
     const registerFieldsAreValid = (firstName, lastName, email, username, password) => {
         if (
@@ -64,7 +59,7 @@ export default function RegisterForm() {
             })
                 .then(function ({ data, status }) {
                     localStorage.setItem("token", data.token);
-                    window.location.href = "/";
+                    router.push("/");
                 })
                 .catch(function (err) {
                     iziToast.destroy();

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-// import iziToast from "../static/iziToast.min";
 
 export default function AddTask(props) {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
@@ -37,7 +36,7 @@ export default function AddTask(props) {
                     props.addNewTask(newTask);
                     iziToast.destroy();
                     iziToast.success({
-                        title: "Success",
+                        title: "Todo",
                         message: "Added new todo"
                     });
                 });

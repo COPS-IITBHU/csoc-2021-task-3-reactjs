@@ -2,6 +2,7 @@ import Nav from "../components/Nav";
 import TodoListItem from "../components/TodoListItem";
 import AddTask from "../components/AddTask";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 import auth_required from "../middlewares/auth_required";
 import Script from "next/script";
@@ -11,11 +12,12 @@ export default function Home() {
     const [profileName, setProfileName] = useState("");
     const [avatarImage, setAvatarImage] = useState("");
     const [taskList, setTaskList] = useState([]);
+    const router = useRouter();
 
     function getTasks() {
         iziToast.destroy();
         iziToast.info({
-            title: "Info",
+            title: "Welcome",
             message: "Loading all todos"
         });
         axios({
@@ -57,7 +59,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        auth_required();
+        if (auth_required(router)) return;
         axios
             .get(API_BASE_URL + "auth/profile/", {
                 headers: {

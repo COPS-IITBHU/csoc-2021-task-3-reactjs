@@ -23,8 +23,8 @@ export default function TodoListItem(props) {
             .then(function ({ data, status }) {
                 props.deleteTask(id);
                 iziToast.destroy();
-                iziToast.success({
-                    title: "Success",
+                iziToast.info({
+                    title: "Todo",
                     message: "Deleted todo"
                 });
             })
@@ -58,8 +58,8 @@ export default function TodoListItem(props) {
             .then(function ({ data, status }) {
                 setEditMode(false);
                 iziToast.destroy();
-                iziToast.success({
-                    title: "Success",
+                iziToast.info({
+                    title: "Todo",
                     message: "Updated todo"
                 });
             })
