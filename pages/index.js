@@ -50,10 +50,10 @@ export default function Home() {
                 }
             })
             .then((response) => {
-              setAvatarImage(
-                "https://ui-avatars.com/api/?name=" +
-                    response.data.name +
-                    "&background=fff&size=33&color=007bff"
+                setAvatarImage(
+                    "https://ui-avatars.com/api/?name=" +
+                        response.data.name +
+                        "&background=faebd7&size=33&color=007bff"
                 );
                 setProfileName(response.data.name);
                 getTasks();
@@ -78,9 +78,10 @@ export default function Home() {
                    
                     </span>
                     <br/>
-                    <div className="tasks">
+                    <div className="tasks ">
                     {taskList.map((task) => (
                         <TodoListItem
+                        className="taskInput"
                             task={task.title}
                             id={task.id}
                             key={task.id}

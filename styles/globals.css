@@ -145,6 +145,7 @@ nav{
   color: #0c0c0c;
 }
 .boxTasks{
+  font-size: medium;
   position:absolute;
 	height: auto;
   width: auto;
@@ -159,6 +160,16 @@ nav{
   color: #0c0c0c;
 }
 .tasks{
-  color: antiquewhite;
+  color: #faebd7;
   font-weight: bold;
+  
+}
+.Avatar{
+  margin-top: 0;
+}
+.img{
+  padding: 5px;
+}
+.taskInput{
+  background-color: rgb(179, 179, 179);
 }

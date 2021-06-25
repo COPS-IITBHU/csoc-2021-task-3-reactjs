@@ -52,13 +52,13 @@ export default function TodoListItem(props) {
 
     return (
         <>
-            <li className="border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2">
+            <li className="border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2 taskInput">
                 <input
                     id={`input-button-${props.id}`}
                     type="text"
                     className={`${
                         editMode ? "" : "hideme"
-                    } appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
+                    } appearance-none border rounded w-full py-2 px-3 taskInput text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
                     placeholder="Edit The Task"
                     value={task}
                     onChange={(e) => setTask(e.target.value)}
@@ -83,6 +83,7 @@ export default function TodoListItem(props) {
                         onClick={() => editTask(props.id)}
                         className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2">
                        <Image
+                       className="img"
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png"
                             width={18}
                             height={20}
@@ -94,6 +95,7 @@ export default function TodoListItem(props) {
                         className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2"
                         onClick={() => deleteTask(props.id)}>
                          <Image
+                         className="img"
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"
                             width={18}
                             height={22}

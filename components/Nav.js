@@ -29,9 +29,11 @@ export default function Nav({ profileName = "Loading", avatarImage = "#", page =
                 ) : (
                     <div className="inline-block relative">
                         <div className="group inline-block relative">
-                            <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                            <div className="avatar">
+                            <button className="btn Avatar">
                             {avatarImage ? (
                                     <Image
+                                    className="img"
                                         src={avatarImage}
                                         height={33}
                                         width={33}
@@ -40,6 +42,7 @@ export default function Nav({ profileName = "Loading", avatarImage = "#", page =
                                 ) : (
                                     ""
                                 )}
+                                <br/>
                                 <span className="mr-1 texHeading">{profileName.slice(0, 8)}</span>
                                 <svg
                                     className="fill-current h-4 w-4"
@@ -60,6 +63,7 @@ export default function Nav({ profileName = "Loading", avatarImage = "#", page =
                                 </li>
                             </ul>
                         </div>
+                    </div>
                     </div>
                 )}
             </ul>
