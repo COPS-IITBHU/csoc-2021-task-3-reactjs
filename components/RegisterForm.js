@@ -67,10 +67,10 @@ export default function RegisterForm() {
         <>
      
         <>
-                    <div class="box">
+                    <div className="box">
                 <form>
-                    <span class="textHeading">Register</span>
-                <div class="input-container">
+                    <span className="textHeading">Register</span>
+                <div className="input-container">
                     <input type="text" required=""
                     name="inputUsername"
                     id="inputUsername"
@@ -80,7 +80,7 @@ export default function RegisterForm() {
                 
                     >Username</label>		
                 </div>
-                <div class="input-container">
+                <div className="input-container">
                     <input type="text" required=""
                     name="inputFirstName"
                     id="inputFirstName"
@@ -90,7 +90,7 @@ export default function RegisterForm() {
                 
                     >Firstname</label>		
                 </div>
-                <div class="input-container">
+                <div className="input-container">
                     <input type="text" required=""
                    name="inputLastName"
                    id="inputLastName"
@@ -100,7 +100,7 @@ export default function RegisterForm() {
                 
                     >Lastname</label>		
                 </div>
-                <div class="input-container">
+                <div className="input-container">
                     <input type="text" required=""
                     name="inputEmail"
                     id="inputEmail"
@@ -110,7 +110,7 @@ export default function RegisterForm() {
                 
                     >Email</label>		
                 </div>
-                <div class="input-container">		
+                <div className="input-container">		
                     <input type="password" required=""
                     name="inputPassword"
                     id="inputPassword"
@@ -120,7 +120,7 @@ export default function RegisterForm() {
                 
                     >Password</label>
                 </div>
-                    <button type="button" class="btn"
+                    <button type="button" className="btn"
                     onClick={register}>REGISTER</button>
             </form>	
             </div>

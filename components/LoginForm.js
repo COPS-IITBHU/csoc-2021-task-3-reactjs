@@ -41,10 +41,10 @@ export default function LoginForm() {
 
     return (
         <div >
-                    <div class="box">
+                    <div className="box">
                 <form>
-                    <span class="textHeading">login</span>
-                <div class="input-container">
+                    <span className="textHeading">login</span>
+                <div className="input-container">
                     <input type="text" required=""
                     name="inputUsername"
                     id="inputUsername"
@@ -54,7 +54,7 @@ export default function LoginForm() {
                 
                     >Username</label>		
                 </div>
-                <div class="input-container">		
+                <div className="input-container">		
                     <input type="password" required=""
                     name="inputPassword"
                     id="inputPassword"
@@ -64,7 +64,7 @@ export default function LoginForm() {
                 
                     >Password</label>
                 </div>
-                    <button type="button" class="btn"
+                    <button type="button" className="btn"
                     onClick={login}>LOGIN</button>
             </form>	
             </div>
