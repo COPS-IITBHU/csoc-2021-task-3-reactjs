@@ -1,42 +1,109 @@
-export default function RegisterForm() {
-  const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     */
-  }
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import no_auth_required from "../middlewares/no_auth_required";
+import Particles from 'react-particles-js';
 
-  return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Login</h1>
-          <input
-            type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputUsername'
-            id='inputUsername'
-            placeholder='Username'
-          />
+export default function LoginForm() {
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
 
-          <input
-            type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputPassword'
-            id='inputPassword'
-            placeholder='Password'
-          />
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
 
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={login}
-          >
-            Login
-          </button>
+    useEffect(() => {
+        no_auth_required();
+    });
+
+    const login = (e) => {
+        e.preventDefault();
+
+        if (username == "" || password == "") {
+            alert("Fill all the details ")
+        } else {
+            const dataForApiRequest = {
+                username: username,
+                password: password
+            };
+
+            axios({
+                url: API_BASE_URL + "auth/login/",
+                method: "post",
+                data: dataForApiRequest
+            })
+                .then(function ({ data, status }) {
+                    localStorage.setItem("token", data.token);
+                    window.location.href = "/";
+                })
+                .catch(function (err) {
+                    console.log(err)
+                });
+        }
+    };
+
+    return (
+        <div >
+                    <div class="box">
+                <form>
+                    <span class="textHeading">login</span>
+                <div class="input-container">
+                    <input type="text" required=""
+                    name="inputUsername"
+                    id="inputUsername"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}/>
+                    <label
+                
+                    >Username</label>		
+                </div>
+                <div class="input-container">		
+                    <input type="password" required=""
+                    name="inputPassword"
+                    id="inputPassword"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}/>
+                    <label
+                
+                    >Password</label>
+                </div>
+                    <button type="button" class="btn"
+                    onClick={login}>LOGIN</button>
+            </form>	
+            </div>
+            {/* <Particles
+        params={{
+            particles: {
+                number: {
+                    value: 400,
+                    density: {
+                        enable: true,
+                        value_area: 1000
+                    }
+                },
+                color: {
+                    value: '#fff'
+                },
+                opacity: {
+                    value: 0.5,
+                    anim: {
+                        enable: true
+                    }
+                },
+                size: {
+                    value: 7,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 3
+                    }
+                },
+                line_linked: {
+                    enable: false
+                },
+                move: {
+                    speed: 0.2
+                }
+             }    
+        }}    
+      /> */}
         </div>
-      </div>
-    </div>
-  )
+    );
 }

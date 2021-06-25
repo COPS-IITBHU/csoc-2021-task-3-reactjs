@@ -3,22 +3,162 @@
 @tailwind utilities;
 
 .hideme {
-  display: none !important;
+    display: none !important;
 }
 
 .todo-edit-task-input,
 .todo-add-task-input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  max-width: 300px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    max-width: 300px;
 }
 
 .todo-update-task,
 .todo-add-task {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .todo-task {
-  max-width: 260px;
+    max-width: 260px;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    background-color:rgb(179, 179, 179);
+    /* background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F457537643389127359%2F&psig=AOvVaw2HO4jqmDxCuxhebcDHuxgz&ust=1624597468192000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCJiqrqu_r_ECFQAAAAAdAAAAABAP"); */
+}
+nav{
+    background-color: #0c0c0c;
+    position: relative;
+ 
+
+}
+
+  li { 
+    display: table-cell; 
+    position: relative; 
+    padding: 15px 0;
+  }
+  a {
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
+  }
+  a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #e74c3c;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+  a:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+  @media screen and (max-width: 760px) {
+      .box{
+        margin-top: 250px;
+      }
+      .boxTasks{
+        margin-left: -160px;
+       
+      }
+  }
+  .box{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+    background-color: rgba(0, 0, 0, 0.89);
+	border-radius:3px;
+	padding:70px 100px;
+}
+.input-container{
+	position:relative;
+	margin-bottom:25px;
+}
+.input-container label{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-size:16px;
+	color:#fff;	
+    pointer-event:none;
+	transition: all 0.5s ease-in-out;
+}
+.input-container input{ 
+  border:0;
+  border-bottom:1px solid #555;  
+  background:transparent;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:16px;
+  color:#fff;
+}
+.input-container input:focus{ 
+ border:none;	
+ outline:none;
+ border-bottom:1px solid #e74c3c;	
+}
+.btn{
+	color:#fff;
+	background-color:#e74c3c;
+	outline: none;
+    border: 0;
+    color: #fff;
+	padding:10px 20px;
+	text-transform:uppercase;
+	margin-top:50px;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+	top:-12px;
+	font-size:12px;
+	
+}
+.textHeading{
+	color:#fff;	
+	text-transform:uppercase;
+    font-size: 23px;
+    margin: -50px 0 80px 0;
+    display: block;
+    text-align: center;
+}
+.inputTask{
+  
+  padding: 10px;
+  color: #0c0c0c;
+}
+.boxTasks{
+  position:absolute;
+	height: auto;
+  width: auto;
+  background-color: rgba(0, 0, 0, 0.89);
+	border-radius:3px;
+	padding: 100px 70px ;
+  left: 40%;
+  top: 30%;
+
+}
+.logout{
+  color: #0c0c0c;
+}
+.tasks{
+  color: antiquewhite;
+  font-weight: bold;
 }
