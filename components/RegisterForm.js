@@ -58,7 +58,7 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          router.reload();
         })
         .catch(function (err) {
           console.log(

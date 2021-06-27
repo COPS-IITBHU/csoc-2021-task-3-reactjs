@@ -1,78 +1,152 @@
 /* eslint-disable @next/next/no-img-element */
 
-export default function TodoListItem() {
+import axios from "../utils/axios";
+import { useRef } from "react";
+import {useAuth} from '../context/auth';
+
+export default function TodoListItem(props) {
+  const updateFieldRef =  useRef(null);
+  const updateButtonRef = useRef(null);
+  const titleRef = useRef(null);
+  const editAndDeleteRef = useRef(null);
+  const containerRef = useRef(null);
+  const {token} = useAuth();
+
+  const hideClasses = () => {
+    updateFieldRef.current.classList.remove('hideme');
+    updateButtonRef.current.classList.remove('hideme');
+    titleRef.current.classList.add('hideme');
+    editAndDeleteRef.current.classList.add('hideme');
+  }
+
+  const showClasses = () => {
+    updateFieldRef.current.classList.add('hideme');
+    updateButtonRef.current.classList.add('hideme');
+    titleRef.current.classList.remove('hideme');
+    editAndDeleteRef.current.classList.remove('hideme');
+  }
+
   const editTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Update the dom accordingly
-     */
+    hideClasses();
   }
 
   const deleteTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to delete the task to the backend server.
-     * @todo 2. Remove the task from the dom.
-     */
+    axios({
+      url : `todo/${id}/`,
+      method : 'delete',
+      headers : {
+        'Authorization' : `Token ${token}`
+      }
+    })
+    .then(response => {
+      console.log("Deleted Successfully");
+
+      const event = new CustomEvent('deletedTask', {
+        bubbles : true,
+        detail : {
+          id
+        }
+      });
+      containerRef.current.dispatchEvent(event);
+    })
+    .catch(error => {
+      console.log("Something Went Wrong.")
+    })
   }
 
   const updateTask = (id) => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to update the task to the backend server.
-     * @todo 2. Update the task in the dom.
-     */
+    const title = updateFieldRef.current.value;
+
+    if (title !== "") {
+      const data = {title};
+
+      axios({
+        url : `todo/${id}/`,
+        data,
+        method : 'put',
+        headers : {
+          'Authorization' : `Token ${token}`
+        }
+      })
+      .then(({data, status}) => {
+        titleRef.current.textContent = data.title;
+        showClasses();
+      })
+      .catch(error => {
+        console.log("Something Went Wrong.");
+        showClasses();
+      })
+    } else {
+      showClasses();
+    }
   }
 
   return (
     <>
-      <li className='border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2'>
+      <li
+        className="border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2"
+        id={`task-container-${props.id}`}
+        ref = {containerRef}
+      >
         <input
-          id='input-button-1'
-          type='text'
-          className='hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input'
-          placeholder='Edit The Task'
+          id={`input-button-${props.id}`}
+          type="text"
+          className="hideme appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input"
+          placeholder="Edit The Task"
+          ref={updateFieldRef}
         />
-        <div id='done-button-1' className='hideme'>
+        <div
+          id={`done-button-${props.id}`}
+          className="hideme"
+          ref={updateButtonRef}
+        >
           <button
-            className='bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task'
-            type='button'
-            onClick={updateTask(1)}
+            className="bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task"
+            type="button"
+            onClick={() => updateTask(props.id)}
           >
             Done
           </button>
         </div>
-        <div id='task-1' className='todo-task  text-gray-600'>
-          Sample Task 1
+        <div
+          id={`task-${props.id}`}
+          className="todo-task  text-gray-600"
+          ref={titleRef}
+        >
+          {props.title}
         </div>
-        <span id='task-actions-1' className=''>
+        <span
+          id={`task-actions-${props.id}`}
+          className=""
+          ref={editAndDeleteRef}
+        >
           <button
-            style={{ marginRight: '5px' }}
-            type='button'
-            onClick={editTask(1)}
-            className='bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2'
+            style={{ marginRight: "5px" }}
+            type="button"
+            onClick={() => editTask(props.id)}
+            className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 py-2"
           >
             <img
-              src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png'
-              width='18px'
-              height='20px'
-              alt='Edit'
+              src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png"
+              width="18px"
+              height="20px"
+              alt="Edit"
             />
           </button>
           <button
-            type='button'
-            className='bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2'
-            onClick={deleteTask(1)}
+            type="button"
+            className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 py-2"
+            onClick={() => deleteTask(props.id)}
           >
             <img
-              src='https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg'
-              width='18px'
-              height='22px'
-              alt='Delete'
+              src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"
+              width="18px"
+              height="22px"
+              alt="Delete"
             />
           </button>
         </span>
       </li>
     </>
-  )
+  );
 }
