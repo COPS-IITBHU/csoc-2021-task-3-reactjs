@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, createContext } from 'react'
-// import { useCookies } from 'react-cookie'
+
 
 import Cookies from 'universal-cookie';
  
@@ -16,17 +16,15 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter()
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
-  // const [cookies, setCookies, removeCookies] = useCookies(['auth'])
+
+  
   const token = cookies.get('token')
 
-  // cookies.set('myCat', 'Pacman', { path: '/' });
-  // cookies.get('myCat')
 
-  // const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const setToken = (newToken) => cookies.set('token', newToken, { path: '/'})
 
 
-  // const deleteToken = () => removeCookies('token')
+
 
   const deleteToken = () => cookies.set('token', null, { path: '/'})
 
