@@ -20,11 +20,11 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (token) {
+    if (document.cookie!='') {
       axios
         .get('auth/profile/', {
           headers: {
-            Authorization: 'Token ' + token,
+            Authorization: 'Token ' + document.cookie.substring(6),
           },
         })
         .then((response) => {

@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
@@ -9,7 +10,7 @@ import { useAuth } from '../context/auth'
 
 export default function Nav() {
   const { logout, profileName, avatarImage } = useAuth()
-
+  const router =useRouter()
   return (
     <nav className='bg-blue-600'>
       <ul className='flex items-center justify-between p-5'>
@@ -22,15 +23,15 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
+        {router.pathname!=='/' && (<ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
           </li>
           <li className='text-white'>
             <Link href='/register'>Register</Link>
           </li>
-        </ul>
-        <div className='inline-block relative w-28'>
+        </ul>)}
+        {router.pathname==='/' && (<div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
@@ -55,7 +56,7 @@ export default function Nav() {
               </li>
             </ul>
           </div>
-        </div>
+        </div>)}
       </ul>
     </nav>
   )
