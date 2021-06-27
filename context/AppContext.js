@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 const AppContext = createContext({
     token: "",
@@ -8,17 +9,18 @@ const AppContext = createContext({
 });
 
 export function AppWrapper({ children }) {
-    const [token, setToken] = useState();
+    const [cookies, setCookies, removeCookies] = useCookies(["token"]);
+    const [token, setToken] = useState(cookies.token);
     useEffect(() => {
-        setToken(localStorage.getItem("token"));
+        setToken(cookies.token);
     });
     const logout = () => {
         setToken("");
-        localStorage.removeItem("token");
+        removeCookies("token");
     };
     const login = (token) => {
         setToken(token);
-        localStorage.setItem("token", token);
+        setCookies("token", token, { path: "/", maxAge: 1296000 });
     };
     let sharedState = {
         token,
