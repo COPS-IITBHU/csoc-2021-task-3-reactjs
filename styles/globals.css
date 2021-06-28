@@ -41,7 +41,7 @@ body{
   width: 100%;
   height: 100vh;
   font-family: sans-serif;
-  color: #fff;
+  /* color: #fff; */
   background: linear-gradient(-55deg, #059669,#99f2c8, #059669);
   background-size: 400% 400%;
   -webkit-animation: gradientBackground 10s ease infinite;
