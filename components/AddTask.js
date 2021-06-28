@@ -1,10 +1,33 @@
-export default function AddTask() {
+import axios from 'axios'
+export default function AddTask({todos,settodos}) {
   const addTask = () => {
     /**
      * @todo Complete this function.
      * @todo 1. Send the request to add the task to the backend server.
      * @todo 2. Add the task in the dom.
      */
+    const API_BASE_URL = 'https://todo-app-csoc.herokuapp.com/'
+    const str = (document.querySelector('.todo-add-task-input').value);
+    if (str === '') return;
+    { try { iziToast.show({ title: "Wait", message: 'Adding Todo' }) } catch { } }
+    axios({
+      headers: {
+        Authorization: 'Token ' + localStorage.getItem('token'),
+      },
+      method: 'post',
+      url: API_BASE_URL + 'todo/create/',
+      data: {
+        title: str
+      }
+    }).then(function ({ data, status }) {
+      { try { iziToast.success({ title: "Success", message: 'Added Todo' }) } catch { } }
+      document.querySelector('.todo-add-task-input').value = ''
+      axios({
+        headers: { Authorization: 'Token ' + localStorage.getItem('token'), },
+        url: API_BASE_URL + 'todo/',
+        method: 'get',
+      }).then((res) => settodos(res.data))
+    }).catch((err) => { try { iziToast.error({ title: "Error", message: 'Cannot Add Todo' }) } catch { } })
   }
   return (
     <div className='flex items-center max-w-sm mt-24'>
