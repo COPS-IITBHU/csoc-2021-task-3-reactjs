@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
+toast.configure()
 export default function Register() {
-  const { setToken } = useAuth()
+  const { setpagetype,login } = useAuth()
   const router = useRouter()
+  useEffect(()=>{setpagetype("REGISTER");},[])
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -27,11 +31,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      toast.error('Please fill all the fields correctly.',{position: toast.POSITION.BOTTOM_RIGHT})
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      toast.error('Please enter a valid email address.',{position: toast.POSITION.BOTTOM_RIGHT})
       return false
     }
     return true
@@ -43,7 +47,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      toast.warning('Please wait...',{position: toast.POSITION.BOTTOM_RIGHT})
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -57,13 +61,11 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
-          setToken(data.token)
-          router.push('/')
+          login(data.token)
+          toast.success('Registered Successfully',{position: toast.POSITION.BOTTOM_RIGHT})
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          toast.warning('An account using same email or username is already created',{position: toast.POSITION.BOTTOM_RIGHT})
         })
     }
   }

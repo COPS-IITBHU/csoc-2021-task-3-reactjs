@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Nav />
-      <Component {...pageProps} />
+      <Component {...pageProps}/>
     </AuthProvider>
   )
 }

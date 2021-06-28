@@ -10,13 +10,35 @@ export const AuthProvider = ({ children }) => {
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
-
+  const [pagetype,setpagetype] = useState("HOME"); 
+  const token = cookies.token;
+  const API_BASE_URL = 'https://todo-app-csoc.herokuapp.com/';
+  const config={
+    headers: {
+        Authorization: "Token " + cookies.token
+    },
+  };
+  
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
+  
+  const loginpage=()=>{
+    const text= window.location.href;
+    if(text.indexOf("/login")===-1) router.push('/login')
+  }
+  const homepage=()=>{
+    const text= window.location.href;
+    if(text.indexOf("/login")>-1 || text.indexOf("/register")>-1) router.push('/')
+  }
   const logout = () => {
-    deleteToken()
-    router.push('/login')
+    deleteToken();
+    const text= window.location.href;
+    if(text.indexOf("/login")===-1) router.push('/login');
+  }
+  const login = (newtoken) => {
+    setToken(newtoken);
+    const text= window.location.href;
+    if(text.indexOf("/login")>-1 || text.indexOf("/register")>-1) window.location.href='/';
   }
 
   useEffect(() => {
@@ -52,6 +74,13 @@ export const AuthProvider = ({ children }) => {
         avatarImage,
         setAvatarImage,
         logout,
+        login,
+        loginpage,
+        homepage,
+        pagetype,
+        setpagetype,
+        API_BASE_URL,
+        config,
       }}
     >
       {children}
@@ -59,4 +88,4 @@ export const AuthProvider = ({ children }) => {
   )
 }
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);
