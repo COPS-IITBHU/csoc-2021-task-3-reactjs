@@ -53,7 +53,6 @@ export default function Home() {
        },
      })
        .then(({ data, status }) => {
-         console.log(data);
          setTasks(data);
        })
        .catch((error) => {

@@ -26,7 +26,8 @@ export default function RegisterForm() {
       })
       .then(({data,status}) => {
         setToken(data.token)
-        router.reload();
+        // router.reload();
+        router.push('/');
       })
       .catch(error => {
         console.log("Enter Correct Credentials.");

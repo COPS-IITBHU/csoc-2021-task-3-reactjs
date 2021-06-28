@@ -3,10 +3,12 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/auth'
+import {useCookies} from 'react-cookie';
 
 export default function Nav() {
   const { token, logout, profileName, avatarImage } = useAuth()
   const [show, setShow] = useState(null);
+  console.log("render");
 
   useEffect(() => {
     if (token) {
@@ -14,7 +16,7 @@ export default function Nav() {
     } else {
       setShow(noAuthPresent);
     }
-  }, [profileName, avatarImage]);
+  }, [profileName, avatarImage, token]);
 
   const noAuthPresent = (
     <ul className="flex">
