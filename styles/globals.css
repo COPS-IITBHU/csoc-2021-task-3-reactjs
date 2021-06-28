@@ -24,12 +24,60 @@
 }
 
 body{
-  min-height: 80vh;
+  /* min-height: 80vh; */
   /* color: red; */
   /* background:linear-gradient(purple,rgba(0, 0, 255, 0.644)); */
   /* background:radial-gradient(green,transparent); */
-  background: radial-gradient(white,#059669);
+
+  /* version 1.0.2  */
+  /* background: radial-gradient(white,#059669);
   background-size: cover;
-  background-position: center center;
+  background-position: center center; */
+
+
+
+  /* implementing the new background  */
+
+  width: 100%;
+  height: 100vh;
+  font-family: sans-serif;
+  color: #fff;
+  background: linear-gradient(-55deg, #059669,#99f2c8, #059669);
+  background-size: 400% 400%;
+  -webkit-animation: gradientBackground 10s ease infinite;
+          animation: gradientBackground 10s ease infinite;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+@keyframes animate {
+  0%{
+    background-position: 0;
+  }
+  100%{
+    background-position: 600vw;
+  }
+}
+
+
+@-webkit-keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
