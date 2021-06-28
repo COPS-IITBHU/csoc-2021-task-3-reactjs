@@ -1,25 +1,26 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { useAuth } from '../context/auth'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
-export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+export default function Nav({ profileName = 'Login', avatarImage = '#' }) {
+  const logout = () => {
+    localStorage.removeItem('token')
+    window.location.href = '/login/'
+  }
 
   return (
     <nav className='bg-blue-600'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
-            <Link href="/" passHref={true}>
-              <a>
-                <h1 className='text-white font-bold text-xl'>Todo</h1>
-              </a>
-            </Link>
+            <h1 className='text-white font-bold text-xl'>Todo</h1>
+          </li>
+          <li className='text-white font-semibold'>
+            <Link href='/'>Tasks</Link>
           </li>
         </ul>
         <ul className='flex'>
