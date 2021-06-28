@@ -11,6 +11,8 @@ import { useAppContext } from "../context/AppContext";
 export default function Nav({ profileName = "Loading", avatarImage = "", page = "" }) {
     const app = useAppContext();
     const router = useRouter();
+
+    // function for logout 
     const logout = () => {
         app.logout();
         router.replace("/login/");
