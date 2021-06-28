@@ -1,12 +1,40 @@
-export default function RegisterForm() {
-  const login = () => {
+import React, { useState } from 'react'
+import axios from 'axios'
+
+export default function LoginForm() {
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+
+  const API_BASE_URL = 'https://todo-app-csoc.herokuapp.com/'
+  const login = (e) => {
+    e.preventDefault()
+      console.log('Please wait...')
+
+      const dataForApiRequest = {
+        username: username,
+        password: password,
+      }
+
+      axios({
+        url: API_BASE_URL + 'auth/login/',
+        method: 'post',
+        data: dataForApiRequest,
+      })
+        .then(function ({ data, status }) {
+          localStorage.setItem('token', data.token)
+          window.location.href = '/'
+        })
+        .catch(function (err) {
+          console.log('Invalid username or password!')
+        })
+    }
+  
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.
      * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
      */
-  }
+  
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
@@ -18,6 +46,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputUsername'
             id='inputUsername'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder='Username'
           />
 
@@ -26,6 +56,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputPassword'
             id='inputPassword'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
 
