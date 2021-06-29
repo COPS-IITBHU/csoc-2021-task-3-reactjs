@@ -8,7 +8,7 @@ import { useAuth } from '../context/auth'
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { logout, profileName, avatarImage } = useAuth();
 
   return (
     <nav className='bg-blue-600'>

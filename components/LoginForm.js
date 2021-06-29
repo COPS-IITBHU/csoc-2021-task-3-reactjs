@@ -1,11 +1,69 @@
+import axios from '../utils/axios';
+import { useAuth } from '../context/auth';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useToast, immediateToast } from "izitoast-react";
+import iziToast from 'izitoast';
+
 export default function RegisterForm() {
-  const login = () => {
+  const router= useRouter();
+  const [username,setUsername] = useState('');
+  const [password,setPassword] = useState('');
+  const { token, setToken }=useAuth();
+  const toastError=useToast('error',{
+    message:"Wrong Username and Password! Please Try Again",
+  }
+
+  );
+
+  const loginFieldsValid =(username,password) => {
+    if(username==='' || password==='')
+    {
+      console.log('Please Enter Valid Details');
+      return false;
+    }
+    return true;
+  };
+
+  const login = (e) => {
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.
      * @todo 2. Fetch the auth token from backend and login the user.
      * @todo 3. Set the token in the context (See context/auth.js)
      */
+    e.preventDefault();
+   
+    
+    if(loginFieldsValid(username,password)){
+      console.log("Please Wait...")
+      const dataForApiRequest={
+        "username":username,
+        "password":password,
+      }
+
+      axios.post('auth/login/',dataForApiRequest)
+      .then(
+        ({data}) => {
+          console.log("Logging In");
+          setToken(data.token);
+          //console.log(data.token);
+          router.push('/');
+        }
+      )
+      .catch(
+        () => {
+          // immediateToast("error",{
+          //   message:"Wrong",
+          //   timeout:50000
+          // });
+          console.log("Some Error Ocurred");
+        }
+      )
+
+    }
+  
+
   }
 
   return (
@@ -19,6 +77,7 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <input
@@ -27,6 +86,7 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
