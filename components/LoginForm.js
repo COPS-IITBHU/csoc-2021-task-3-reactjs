@@ -1,5 +1,8 @@
 // importing the necessary components
 
+
+// version 1.0.6
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -113,8 +116,8 @@ export default function LoginForm() {
 
                     
                     <button className='w-full text-center py-3 rounded bg-transparent text-yellow-500 hover:text-white hover:bg-yellow-500 border border-yellow-500 hover:border-transparent focus:outline-none my-1'><u><Link href='/register' >New? Sign Up First</Link></u></button>
-                    
-                                        
+
+
                     {/* forgot username and password button  */}
                     <a href= 'https://naveen-kumar-portfolio.herokuapp.com' ><button
                         type="submit"
