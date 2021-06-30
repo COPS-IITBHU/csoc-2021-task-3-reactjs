@@ -11,6 +11,6 @@ import { useAppContext } from "../context/AppContext";
 export default function Footer()
 {
     return <>
-        {/* Plan Got cancelled  */}
+        <h4 className='footer-part'>Todo App Created by COPS core members</h4>
     </>
 }

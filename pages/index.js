@@ -8,6 +8,8 @@ import { useAuthRequired } from "../middlewares/auth_required";
 import Script from "next/script";
 import { useAppContext } from "../context/AppContext";
 
+import Footer from "../components/Footer";
+
 
 
 
@@ -161,6 +163,8 @@ export default function Home() {
                     ))}
                 </ul>
             </center>
+            <Footer/>
         </div>
+        
     );
 }

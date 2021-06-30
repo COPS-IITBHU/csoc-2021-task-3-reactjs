@@ -2,6 +2,8 @@
 
 import Nav from "../components/Nav";
 import LoginForm from "../components/LoginForm";
+
+import Footer from "../components/Footer";
 import Script from "next/script";
 import { useNoAuthRequired } from "../middlewares/no_auth_required";
 
@@ -22,6 +24,7 @@ export default function Login() {
             <Script src="/iziToast.min.js" />
             <Nav />
             <LoginForm />
+            <Footer/>
         </div>
     );
 }

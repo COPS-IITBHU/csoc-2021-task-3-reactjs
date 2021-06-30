@@ -87,3 +87,15 @@ body{
   align-items: center;
   justify-content: center;
 }
+
+.footer-part{
+  color: white;
+  height: auto;
+  background-color: crimson;
+  font-size: 20px;
+  font-family:sans-serif;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 8px 2px;
+
+}

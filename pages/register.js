@@ -5,6 +5,8 @@ import RegisterForm from "../components/RegisterForm";
 import Script from "next/script";
 import { useNoAuthRequired } from "../middlewares/no_auth_required";
 
+import Footer from "../components/Footer";
+
 
 
 
@@ -20,6 +22,7 @@ export default function Register() {
             <Script src="/iziToast.min.js" />
             <Nav />
             <RegisterForm />
+            <Footer/>
         </div>
     );
 }
