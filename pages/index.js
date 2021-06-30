@@ -1,12 +1,12 @@
 // importing... 
-import Nav from "../components/Nav";
-import TodoListItem from "../components/TodoListItem";
-import JoinTodo from "../components/JoinTodo";
-import { useState, useEffect } from "react";
 import axios from "axios";
+import JoinTodo from "../components/JoinTodo";
+import TodoListItem from "../components/TodoListItem";
+import { useState, useEffect } from "react";
 import { useAuthRequired } from "../middlewares/auth_required";
-import Script from "next/script";
 import { useAppContext } from "../components/AppContext";
+import Nav from "../components/Nav";
+import Script from "next/script";
 
 
 
@@ -19,8 +19,8 @@ export default function Home() {
     useAuthRequired();
     const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
-    const [profileName, setProfileName] = useState("");
-    const [avatarImage, setAvatarImage] = useState("");
+    const [profileName, setName] = useState("");
+    const [avatarImage, setPhoto] = useState("");
     const [taskList, setTaskList] = useState([]);
 
 
@@ -93,12 +93,12 @@ export default function Home() {
                 }
             })
             .then((response) => {
-                setAvatarImage(
+                setPhoto(
                     "https://ui-avatars.com/api/?name=" +
                         response.data.name +
                         "&background=fff&size=33&color=007bff"
                 );
-                setProfileName(response.data.name);
+                setName(response.data.name);
                 getTasks();
             })
             .catch((error) => {

@@ -3,8 +3,8 @@
 
 // version 1.0.6
 
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useAppContext } from "../context/AppContext";
 import Link from 'next/link'
@@ -15,10 +15,10 @@ import Link from 'next/link'
 
 // section for Login 
 export default function LoginForm() {
-    const app = useAppContext();
-    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const app = useAppContext();
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const router = useRouter();
 
 
@@ -35,8 +35,8 @@ export default function LoginForm() {
 
 
             const dataForApiRequest = {
-                username: username,
-                password: password
+                password: password,
+                username: username
             };
 
 
@@ -45,8 +45,7 @@ export default function LoginForm() {
 
             axios({
                 url: API_BASE_URL + "auth/login/",
-                method: "post",
-                data: dataForApiRequest
+                method: "post", data: dataForApiRequest
             })
                 .then(function ({ data, status }) {
                     app.login(data.token);
@@ -106,16 +105,19 @@ export default function LoginForm() {
                         Click Here to Login
                     </button>
 
+
+
                     
                     <button className='btn blck register-btn'><u><Link href='/register' >New? Sign Up First</Link></u></button>
+
+
 
 
                     {/* forgot username and password button  */}
                     <a href= 'https://naveen-kumar-portfolio.herokuapp.com' ><button
                         type="submit"
                         className="btn blck forgot"
-                         >
-                        Forgot Something Contact Us !
+                         >Forgot Something Contact Us !
                     </button></a>
 
                 </div>

@@ -1,9 +1,10 @@
 // importing... 
 
-import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAppContext } from "./AppContext";
+import Link from "next/link";
+import Image from "next/image";
 
 
 // exporting the function Nav for the Navbar along with its declaration and definition 
@@ -27,34 +28,28 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
     return (
         <nav className="bg-green-600">           
         {/* specifying the navbar properties  */}
+
+
             <ul className="flex items-center justify-between p-5">
                 <ul className="flex items-center justify-between space-x-4">
-                    <li>
-                        <h1 className="text-white font-bold text-xl">Todo</h1>
-                    </li>
-                    <li className="text-white font-semibold">
-                        <Link href="/">Tasks</Link>
-                    </li>
-                </ul>
+                    <li><h1 className="text-white font-bold text-xl">Todo</h1></li>
+                    <li className="text-white font-semibold"><Link href="/">Tasks</Link></li>
+            </ul>
+
                 {page !== "index" ? (
                     <ul className="flex">
-                        <li className="text-white mr-2">
-                            <Link href="/login">Login</Link>
-                        </li>
-                        <li className="text-white">
-                            <Link href="/register">Register</Link>
-                        </li>
+                        <li className="text-white mr-2"><Link href="/login">Login</Link></li>
+                        <li className="text-white"><Link href="/register">Register</Link></li>
                     </ul>
+
+
                 ) : (
                     <div className="inline-block relative">
                         <div className="group inline-block relative">
                             <button className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
                                 {avatarImage ? (
                                     <Image
-                                        src={avatarImage}
-                                        height={35}
-                                        width={35}
-                                        alt="Profile image"
+                                        src={avatarImage} height={35} width={35} alt="Profile image"
                                     />
                                 ) : (
                                     ""
@@ -70,15 +65,11 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
                             <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
                                 <li className="">
                                     <button
-                                        className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                                        href="#"
-                                        onClick={logout}>
+                                        className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={logout}>
                                         Logout
                                     </button>
                                 </li>
-                            </ul>
-                        </div>
-                    </div>
+                            </ul></div></div>
 
                     
                 )}

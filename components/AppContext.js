@@ -1,8 +1,7 @@
 // importing... 
 
-import { createContext, useContext, useEffect } from "react";
-import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { createContext, useContext, useEffect, useState} from "react";
 
 
 
@@ -23,14 +22,9 @@ const AppContext = createContext({
 // exporting the Functioning function alongwith its declaration and definition 
 
 export function Functioning({ children }) {
-    const [cookies, setCookies, removeCookies] = useCookies(["token"]);
     const [token, setToken] = useState(cookies.token);
+    const [cookies, setCookies, removeCookies] = useCookies(["token"]);
 
-
-
-    useEffect(() => {
-        setToken(cookies.token);
-    });
     const logout = () => {
         setToken("");
         removeCookies("token");
@@ -39,10 +33,13 @@ export function Functioning({ children }) {
         setToken(token);
         setCookies("token", token, { path: "/", maxAge: 1296000 });
     };
+
+    useEffect(() => {
+        setToken(cookies.token);
+    });
+
     let sharedState = {
-        token,
-        logout,
-        login
+        token,logout,login
     };
 
     return <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>;

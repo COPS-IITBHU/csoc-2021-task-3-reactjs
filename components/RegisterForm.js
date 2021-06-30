@@ -1,9 +1,9 @@
 // importing... 
 
-import React, { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
+import { useRouter } from "next/router";
 
 
 
@@ -19,12 +19,12 @@ export default function RegisterForm() {
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
 
     // useState is imported for the application here 
+    const router = useRouter();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
-    const router = useRouter();
 
 
 
@@ -42,17 +42,11 @@ export default function RegisterForm() {
             username === "" ||
             password === ""
         ) {
-            iziToast.error({  // izitoast for the better user interface 
-                title: "Error",
-                message: "Please correctly enter the fields !"
-            });
+            alert('please enter the details correctly')
             return false;
         }
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-            iziToast.error({
-                title: "Error",
-                message: "Please enter correct email !"
-            });
+            alert('please enter correct email')
             return false;
         }
         return true;
@@ -68,11 +62,7 @@ export default function RegisterForm() {
         e.preventDefault();
 
         if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
-            iziToast.destroy();
-            iziToast.info({
-                title: "Wait",
-                message: "Processing..."
-            });
+            
 
             const dataForApiRequest = {
                 name: firstName + " " + lastName,
@@ -93,11 +83,7 @@ export default function RegisterForm() {
                     router.replace("/");
                 })
                 .catch(function (err) {
-                    iziToast.destroy();
-                    iziToast.error({
-                        title: "Error",
-                        message: "Account already exist with either same Username or Email, Please try with another one"
-                    });
+                    alert('account already exist with same credentials')
                 });
         }
     };

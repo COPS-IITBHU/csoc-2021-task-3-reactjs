@@ -1,11 +1,12 @@
 // importing... 
-
-import Nav from "../components/Nav";
-import LoginForm from "../components/LoginForm";
-import Script from "next/script";
-import { useNoAuthRequired } from "../middlewares/no_auth_required";
+import React, { useEffect } from "react";
 
 
+    // this line of code change the title of the page 
+    useEffect(()=>{
+        document.title="Index"
+    })
+    
 
 
 export default function forgotDetails(){

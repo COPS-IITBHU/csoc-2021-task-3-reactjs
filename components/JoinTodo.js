@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import axios from "axios";
-
-import Footer from "./Footer";
 import { useAppContext } from "./AppContext";
+import Footer from "./Footer";
+
 
 
 
@@ -15,10 +15,10 @@ import { useAppContext } from "./AppContext";
 export default function JoinTodo(props) {
     const app = useAppContext();
 
+    // here initialising the empty string to state 'value'
+    const [value, setValue] = useState("");
     // specifying the backend 
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
-    const [value, setValue] = useState("");
-    // here initialising the empty string to state 'value'
 
 
     const joinTodo = () => {
@@ -26,10 +26,7 @@ export default function JoinTodo(props) {
         // for trimming the text 
 
         if (!todoText) { // when the todo text is empty 
-            
-
             alert('Please Enter Atleast Some Text')
-
             return;
         }
 
@@ -79,11 +76,7 @@ export default function JoinTodo(props) {
     return (
         <div className="flex items-center max-w-sm mt-24">
             <input
-                type="text"
-                className="enter-task"
-                placeholder="Enter Todo to Add"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
+                type="text" className="enter-task" placeholder="Enter Todo to Add" value={value} onChange={(e) => setValue(e.target.value)}
             />
 
 
@@ -91,9 +84,7 @@ export default function JoinTodo(props) {
 
             {/* adding the button to add the task to your Todo list  */}
             <button
-                type="button"
-                className="btn"
-                onClick={joinTodo}>
+                type="button" className="btn" onClick={joinTodo}>
                 Add Task
             </button>
             {/* <Footer/> */}

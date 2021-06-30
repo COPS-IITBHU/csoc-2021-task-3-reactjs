@@ -1,13 +1,18 @@
 // importing... 
 
+import React, { useEffect } from "react";
+import { useNoAuthRequired } from "../middlewares/no_auth_required";
 import Nav from "../components/Nav";
 import LoginForm from "../components/LoginForm";
-
 import Footer from "../components/Footer";
-import Script from "next/script";
-import { useNoAuthRequired } from "../middlewares/no_auth_required";
 
 
+
+    // this line of code change the title of the page 
+    useEffect(()=>{
+        document.title="Login Page"
+    })
+    
 
 
 
@@ -21,7 +26,6 @@ export default function Login() {
 
     return (
         <div>
-            <Script src="/iziToast.min.js" />
             <Nav />
             <LoginForm />
             <Footer/>

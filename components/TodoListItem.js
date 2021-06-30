@@ -1,11 +1,12 @@
 // importing... 
 
 import React, { useState } from "react";
+// either we can use useState by React.useState 
 import Image from "next/image";
+import Footer from "../components/Footer";
 import axios from "axios";
 import { useAppContext } from "./AppContext";
 
-import Footer from "../components/Footer";
 
 
 
@@ -50,10 +51,10 @@ import Footer from "../components/Footer";
 // exporting the function TodoListItem along with its declaration and definition 
 
 export default function TodoListItem(props) {
-    const app = useAppContext();
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
-    const [task, setTask] = useState(props.task);
+    const app = useAppContext();
     const [editMode, setEditMode] = useState(false);
+    const [task, setTask] = useState(props.task);
     const editTask = (id) => {
         setEditMode(true);
     };

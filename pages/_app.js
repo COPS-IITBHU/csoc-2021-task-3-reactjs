@@ -1,7 +1,6 @@
 // importing... 
 
 import "../styles/globals.css";
-import "izitoast/dist/css/iziToast.min.css";
 import { Functioning } from "../components/AppContext";
 
 
