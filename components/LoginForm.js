@@ -27,17 +27,13 @@ export default function LoginForm() {
         e.preventDefault();
 
         if (username == "" || password == "") {
-            iziToast.destroy();
-            iziToast.error({
-                title: "Error",
-                message: "Please fill all the fields correctly."
-            });
+            
+            alert("please check your data once again and fill that correctly")
         } else {
-            iziToast.destroy();
-            iziToast.info({
-                title: "Info",
-                message: "Processing..."
-            });
+            alert("please wait... | processing")
+
+
+
             const dataForApiRequest = {
                 username: username,
                 password: password
@@ -57,11 +53,7 @@ export default function LoginForm() {
                     router.replace("/");
                 })
                 .catch(function (err) {
-                    iziToast.destroy();
-                    iziToast.error({
-                        title: "Error",
-                        message: "Either username or password is incorrect"
-                    });
+                    alert("either username or password is incorrect")
                 });
         }
     };
@@ -72,11 +64,11 @@ export default function LoginForm() {
     // gettting the output what we required 
 
     return (
-        <div className="bg-grey-lighter min-h-screen flex flex-col">
-            <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 className="mt-0 mb-8 text-3xl text-center">
-                        <h1 className="mb-0 text-7xl text-center">👤</h1>
+        <div className="main1">
+            <div className="main2">
+                <div className="main3">
+                    <h1 className="main4">
+                        <h1 className="main5"><span id='avatar'>👤</span></h1>
                         <br />
                         Member Login</h1>
 
@@ -85,7 +77,7 @@ export default function LoginForm() {
                     {/* input field to get the username and password from the user  */}
                     <input
                         type="text"
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="enter-task input-field"
                         name="inputUsername"
                         id="inputUsername"
                         value={username}
@@ -95,7 +87,7 @@ export default function LoginForm() {
 
                     <input
                         type="password"
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="enter-task margin-bottom-password input-field"
                         name="inputPassword"
                         id="inputPassword"
                         value={password}
@@ -109,19 +101,19 @@ export default function LoginForm() {
 
                     <button
                         type="submit"
-                        className="w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1"
+                        className="btn blck login"
                         onClick={login}>
                         Click Here to Login
                     </button>
 
                     
-                    <button className='w-full text-center py-3 rounded bg-transparent text-yellow-500 hover:text-white hover:bg-yellow-500 border border-yellow-500 hover:border-transparent focus:outline-none my-1'><u><Link href='/register' >New? Sign Up First</Link></u></button>
+                    <button className='btn blck register-btn'><u><Link href='/register' >New? Sign Up First</Link></u></button>
 
 
                     {/* forgot username and password button  */}
                     <a href= 'https://naveen-kumar-portfolio.herokuapp.com' ><button
                         type="submit"
-                        className="w-full text-center py-3 rounded bg-transparent text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-500 hover:border-transparent focus:outline-none my-1"
+                        className="btn blck forgot"
                          >
                         Forgot Something Contact Us !
                     </button></a>

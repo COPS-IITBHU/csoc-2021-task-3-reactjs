@@ -16,11 +16,8 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
     const logout = () => {
         app.logout();
         router.replace("/login/");
-        iziToast.destroy();
-        iziToast.info({             // added izitoast for the better User Interface 
-            title: "Logout",
-            message: "Logged Out Successfully !"
-        });
+        
+        alert('logged out successfully')
     };
 
 
@@ -55,8 +52,8 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
                                 {avatarImage ? (
                                     <Image
                                         src={avatarImage}
-                                        height={33}
-                                        width={33}
+                                        height={35}
+                                        width={35}
                                         alt="Profile image"
                                     />
                                 ) : (

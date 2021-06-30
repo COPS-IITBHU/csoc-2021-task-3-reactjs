@@ -26,13 +26,10 @@ export default function AddTask(props) {
         // for trimming the text 
 
         if (!todoText) { // when the todo text is empty 
-            // izitoast for the better userinterface 
+            
 
-            iziToast.destroy();
-            iziToast.error({
-                title: "Error",
-                message: "🙏Please Enter Text"
-            });
+            alert('Please Enter Atleast Some Text')
+
             return;
         }
 
@@ -62,20 +59,14 @@ export default function AddTask(props) {
                 }).then(function ({ data, status }) {
                     const newTask = data[data.length - 1];
                     props.addNewTask(newTask);
-                    iziToast.destroy();
-                    iziToast.success({
-                        title: "😀",
-                        message: "Successfully added new Todo"
-                    });
+                    
+                    alert("new todo added successfully")
                 });
             }) 
             // promises part 
             .catch(function (err) {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "😫",
-                    message: "Error Occured"
-                });
+                
+                alert("some error occured")
             });
     };
 
@@ -89,7 +80,7 @@ export default function AddTask(props) {
         <div className="flex items-center max-w-sm mt-24">
             <input
                 type="text"
-                className="todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"
+                className="enter-task"
                 placeholder="Enter Todo to Add"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
@@ -101,7 +92,7 @@ export default function AddTask(props) {
             {/* adding the button to add the task to your Todo list  */}
             <button
                 type="button"
-                className="todo-add-task bg-green hover:bg-white-500 text-white-700 text-sm hover:text-green px-3 py-2 border border-green-500 hover:border-green rounded"
+                className="btn"
                 onClick={addTask}>
                 Add Task
             </button>

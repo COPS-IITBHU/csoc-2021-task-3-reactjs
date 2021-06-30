@@ -8,19 +8,6 @@ import { useAppContext } from "../context/AppContext";
 import Footer from "../components/Footer";
 
 
-// exporting the function TodoListItem along with its declaration and definition 
-
-export default function TodoListItem(props) {
-    const app = useAppContext();
-    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
-    const [task, setTask] = useState(props.task);
-    const [editMode, setEditMode] = useState(false);
-    const editTask = (id) => {
-        setEditMode(true);
-    };
-
-
-
 
 
 
@@ -39,20 +26,39 @@ export default function TodoListItem(props) {
         })
             .then(function ({ data, status }) {
                 props.deleteTask(id);
-                iziToast.destroy();
-                iziToast.info({
-                    title: "💀",
-                    message: "Todo Deleted Successfully"
-                });
+                alert('todo deleted successfully')
             })
             .catch(function (error) {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "😥",
-                    message: "Something went Wrong !"
-                });
+                alert("something happened wrong")
+                
             });
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// exporting the function TodoListItem along with its declaration and definition 
+
+export default function TodoListItem(props) {
+    const app = useAppContext();
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
+    const [task, setTask] = useState(props.task);
+    const [editMode, setEditMode] = useState(false);
+    const editTask = (id) => {
+        setEditMode(true);
+    };
+
+
 
 
 
@@ -68,11 +74,7 @@ export default function TodoListItem(props) {
     const updateTask = (id) => {
         const todoText = task.trim();
         if (!todoText) {
-            iziToast.destroy();
-            iziToast.error({
-                title: "😥",
-                message: "Start adding !"
-            });
+            alert('start adding')
             return;
         }
 
@@ -95,18 +97,10 @@ export default function TodoListItem(props) {
 
             .then(function ({ data, status }) {
                 setEditMode(false);
-                iziToast.destroy();
-                iziToast.info({
-                    title: "✔",
-                    message: "Todo Updated Successfully !"
-                });
+                alert('todo updated successfully')
             })
             .catch(function (err) {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "😥",
-                    message: "Something went Wrong !"
-                });
+                alert('something happened wrong')
             });
     };
 
@@ -122,7 +116,9 @@ export default function TodoListItem(props) {
                     type="text"
                     className={`${
                         editMode ? "" : "hideme"
-                    } appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
+                    }
+                    
+                    appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
                     placeholder="Edit The Task"
                     value={task}
                     onChange={(e) => setTask(e.target.value)}/>
@@ -132,12 +128,21 @@ export default function TodoListItem(props) {
 
                 <div id={`done-button-${props.id}`} className={`${editMode ? "" : "hideme"}`}>
                     <button
-                        className="bg-transparent hover:bg-gray-500 text-gray-700 text-sm  hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task"
+                        className="bg-transparent hover:bg-gray-500 text-gray-700 text-sm 
+                         hover:text-white py-2 px-3 border border-gray-500 hover:border-transparent rounded todo-update-task"
                         type="button"
                         onClick={() => updateTask(props.id)}>
                         Done
                     </button>
                 </div>
+
+
+
+
+
+
+
+
 
 
                 <div
@@ -156,8 +161,8 @@ export default function TodoListItem(props) {
                         className="bg-transparent hover:bg-yellow-500 hover:text-white border border-yellow-500 hover:border-transparent rounded px-2 pt-1.5">
                         <Image
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486663/CSOC/edit.png"
-                            width={18}
-                            height={20}
+                            width={20}
+                            height={25}
                             alt="Edit"/>
                     </button>
 
@@ -170,13 +175,13 @@ export default function TodoListItem(props) {
                         onClick={() => deleteTask(props.id)}>
                         <Image
                             src="https://res.cloudinary.com/nishantwrp/image/upload/v1587486661/CSOC/delete.svg"
-                            width={18}
-                            height={22}
+                            width={20}
+                            height={25}
                             alt="Delete"
                         />
                     </button>
                     {/* <Footer/> */}
-
+{/* footer can't be placed here because already placed in other file */}
 
 
                 </span>

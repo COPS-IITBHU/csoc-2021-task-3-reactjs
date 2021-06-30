@@ -8,8 +8,6 @@ import { useAuthRequired } from "../middlewares/auth_required";
 import Script from "next/script";
 import { useAppContext } from "../context/AppContext";
 
-import Footer from "../components/Footer";
-
 
 
 
@@ -85,11 +83,7 @@ export default function Home() {
     // function deleteTask 
 
     const deleteTask = (id) => {
-        let temp = [...taskList];
-        temp = temp.filter((task) => {
-            return task.id != id;
-        });
-        setTaskList(temp);
+        // no idea 
     };
 
 
@@ -139,6 +133,21 @@ export default function Home() {
 
 
 
+
+
+    // this line of code change the title of the page 
+    useEffect(()=>{
+        document.title="Index"
+    })
+    
+
+
+
+
+
+
+    
+    
     // returning whatever we want to meet our requirements 
 
     return (
@@ -163,8 +172,6 @@ export default function Home() {
                     ))}
                 </ul>
             </center>
-            <Footer/>
         </div>
-        
     );
 }
