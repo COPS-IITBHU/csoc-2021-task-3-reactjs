@@ -86,6 +86,14 @@ export default function RegisterForm() {
           </button>
         </div>
       </div>
+      <Toast 
+        show={show}
+        neutral={state === 'neutral'}
+        danger={state === 'danger'}
+        success={state === 'success'}
+        spinner={spinner}
+        text={text}
+      />
     </div>
   );
 }
