@@ -70,7 +70,7 @@ export default function RegisterForm() {
         if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
             iziToast.destroy();
             iziToast.info({
-                title: "Info",
+                title: "Wait",
                 message: "Processing..."
             });
 
@@ -118,6 +118,7 @@ export default function RegisterForm() {
 
 
                     {/* input field start here  */}
+                    {/* the inputs are set with the useState in React  */}
                     <input
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"

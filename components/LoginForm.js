@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useAppContext } from "../context/AppContext";
-
+import Link from 'next/link'
 
 
 
@@ -110,7 +110,11 @@ export default function LoginForm() {
                         onClick={login}>
                         Click Here to Login
                     </button>
+
                     
+                    <button className='w-full text-center py-3 rounded bg-transparent text-yellow-500 hover:text-white hover:bg-yellow-500 border border-yellow-500 hover:border-transparent focus:outline-none my-1'><u><Link href='/register' >New? Sign Up First</Link></u></button>
+                    
+                                        
                     {/* forgot username and password button  */}
                     <a href= 'https://naveen-kumar-portfolio.herokuapp.com' ><button
                         type="submit"
@@ -118,6 +122,7 @@ export default function LoginForm() {
                          >
                         Forgot Something Contact Us !
                     </button></a>
+
                 </div>
             </div>
         </div>

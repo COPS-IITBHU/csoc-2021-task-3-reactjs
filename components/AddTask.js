@@ -16,10 +16,14 @@ export default function AddTask(props) {
     // specifying the backend 
     const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
     const [value, setValue] = useState("");
+    // here initialising the empty string to state 'value'
+
+
     const addTask = () => {
         const todoText = value.trim();
+        // for trimming the text 
 
-        if (!todoText) {
+        if (!todoText) { // when the todo text is empty 
             // izitoast for the better userinterface 
             iziToast.destroy();
             iziToast.error({
@@ -57,8 +61,8 @@ export default function AddTask(props) {
                     props.addNewTask(newTask);
                     iziToast.destroy();
                     iziToast.success({
-                        title: "Todo",
-                        message: "😀Successfully added new Todo"
+                        title: "😀",
+                        message: "Successfully added new Todo"
                     });
                 });
             }) 
@@ -66,8 +70,8 @@ export default function AddTask(props) {
             .catch(function (err) {
                 iziToast.destroy();
                 iziToast.error({
-                    title: "Error",
-                    message: "😫Error Occured"
+                    title: "😫",
+                    message: "Error Occured"
                 });
             });
     };
@@ -94,7 +98,7 @@ export default function AddTask(props) {
             {/* adding the button to add the task to your Todo list  */}
             <button
                 type="button"
-                className="todo-add-task bg-transparent hover:bg-green-500 text-green-700 text-sm hover:text-white px-3 py-2 border border-green-500 hover:border-transparent rounded"
+                className="todo-add-task bg-green hover:bg-white-500 text-white-700 text-sm hover:text-green px-3 py-2 border border-green-500 hover:border-green rounded"
                 onClick={addTask}>
                 Add Task
             </button>

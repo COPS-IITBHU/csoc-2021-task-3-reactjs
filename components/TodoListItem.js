@@ -39,14 +39,14 @@ export default function TodoListItem(props) {
                 props.deleteTask(id);
                 iziToast.destroy();
                 iziToast.info({
-                    title: "Todo",
+                    title: "💀",
                     message: "Todo Deleted Successfully"
                 });
             })
             .catch(function (error) {
                 iziToast.destroy();
                 iziToast.error({
-                    title: "Error",
+                    title: "😥",
                     message: "Something went Wrong !"
                 });
             });
@@ -68,7 +68,7 @@ export default function TodoListItem(props) {
         if (!todoText) {
             iziToast.destroy();
             iziToast.error({
-                title: "Error",
+                title: "😥",
                 message: "Start adding !"
             });
             return;
@@ -95,14 +95,14 @@ export default function TodoListItem(props) {
                 setEditMode(false);
                 iziToast.destroy();
                 iziToast.info({
-                    title: "Todo",
+                    title: "✔",
                     message: "Todo Updated Successfully !"
                 });
             })
             .catch(function (err) {
                 iziToast.destroy();
                 iziToast.error({
-                    title: "Error",
+                    title: "😥",
                     message: "Something went Wrong !"
                 });
             });
@@ -161,6 +161,7 @@ export default function TodoListItem(props) {
 
 
 
+                    {/* for deleting the Todo by passing the Id as reference to know to delete the particular Todo having the same Id as passed */}
                     <button
                         type="button"
                         className="bg-transparent hover:bg-red-500 hover:text-white border border-red-500 hover:border-transparent rounded px-2 pt-1"

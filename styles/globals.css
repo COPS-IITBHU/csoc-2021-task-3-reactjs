@@ -42,7 +42,7 @@ body{
   height: 100vh;
   font-family: sans-serif;
   /* color: #fff; */
-  background: linear-gradient(-55deg, #059669,#99f2c8, #059669);
+  background: linear-gradient(-55deg, #059669,#c8ecdb, #059669);
   background-size: 400% 400%;
   -webkit-animation: gradientBackground 10s ease infinite;
           animation: gradientBackground 10s ease infinite;
@@ -80,4 +80,10 @@ body{
   100% {
     background-position: 0% 50%;
   }
+}
+
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
