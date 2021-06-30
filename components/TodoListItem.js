@@ -5,6 +5,8 @@ import Image from "next/image";
 import axios from "axios";
 import { useAppContext } from "../context/AppContext";
 
+import Footer from "../components/Footer";
+
 
 // exporting the function TodoListItem along with its declaration and definition 
 
@@ -173,6 +175,7 @@ export default function TodoListItem(props) {
                             alt="Delete"
                         />
                     </button>
+                    {/* <Footer/> */}
 
 
 

@@ -97,5 +97,7 @@ body{
   text-transform: capitalize;
   text-align: center;
   padding: 8px 2px;
-
+  bottom: 0;
+  position: absolute;
+  width: 100%;
 }

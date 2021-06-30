@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import axios from "axios";
+
+import Footer from "../components/Footer";
 import { useAppContext } from "../context/AppContext";
 
 
@@ -25,6 +27,7 @@ export default function AddTask(props) {
 
         if (!todoText) { // when the todo text is empty 
             // izitoast for the better userinterface 
+
             iziToast.destroy();
             iziToast.error({
                 title: "Error",
@@ -102,6 +105,7 @@ export default function AddTask(props) {
                 onClick={addTask}>
                 Add Task
             </button>
+            {/* <Footer/> */}
         </div>
     );
 }
