@@ -2,19 +2,12 @@ import axios from '../utils/axios';
 import { useAuth } from '../context/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useToast, immediateToast } from "izitoast-react";
-import iziToast from 'izitoast';
 
 export default function RegisterForm() {
   const router= useRouter();
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
   const { token, setToken }=useAuth();
-  const toastError=useToast('error',{
-    message:"Wrong Username and Password! Please Try Again",
-  }
-
-  );
 
   const loginFieldsValid =(username,password) => {
     if(username==='' || password==='')

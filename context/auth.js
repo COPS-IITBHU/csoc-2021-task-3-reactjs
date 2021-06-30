@@ -15,7 +15,8 @@ export const AuthProvider = ({ children }) => {
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' });
   const deleteToken = () => removeCookies('token');
   const logout = () => {
-    deleteToken();
+    setToken('');
+    //deleteToken();
     router.push('/login');
   }
 
