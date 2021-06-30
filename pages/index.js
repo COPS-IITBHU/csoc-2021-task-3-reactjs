@@ -30,11 +30,7 @@ export default function Home() {
 
     function getTasks() {         // promising part 
         try {
-            iziToast.destroy();
-            iziToast.info({
-                title: "Welcome",
-                message: "Loading all todos"
-            });
+            
         } catch (e) {
             console.error(e);
         }
@@ -55,18 +51,10 @@ export default function Home() {
             .then(function (response) {
                 const { data, status } = response;
                 setTaskList(data);
-                iziToast.destroy();
-                iziToast.success({
-                    title: "Success",
-                    message: "Loaded all todos successfully"
-                });
+                alert('loaded all todos')
             })
             .catch(function (err) {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "Error",
-                    message: "An error occured"
-                });
+                alert('something went wrong')
             });
     }
 
@@ -94,11 +82,7 @@ export default function Home() {
     useEffect(async () => {
         if (!app.token) {
             try {
-                iziToast.destroy();
-                iziToast.error({
-                    title: "Unauthorized",
-                    message: "You need to login before you can visit."
-                });
+                alert('please sign in first')
             } catch (e) {}
             return;
         }
@@ -122,11 +106,7 @@ export default function Home() {
                 if (typeof document != "object") {
                     console.log("An error occurred");
                 } else {
-                    iziToast.destroy();
-                    iziToast.error({
-                        title: "Error",
-                        message: "An error occured"
-                    });
+                    alert('something went wrong')
                 }
             });
     }, []);
@@ -146,7 +126,7 @@ export default function Home() {
 
 
 
-    
+
     
     // returning whatever we want to meet our requirements 
 
