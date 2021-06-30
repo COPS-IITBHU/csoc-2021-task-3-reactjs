@@ -3,8 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 
-import Footer from "../components/Footer";
-import { useAppContext } from "../context/AppContext";
+import Footer from "./Footer";
+import { useAppContext } from "./AppContext";
 
 
 
@@ -12,7 +12,7 @@ import { useAppContext } from "../context/AppContext";
 
 
 // exporting and defining the funciton for adding the task 
-export default function AddTask(props) {
+export default function JoinTodo(props) {
     const app = useAppContext();
 
     // specifying the backend 
@@ -21,7 +21,7 @@ export default function AddTask(props) {
     // here initialising the empty string to state 'value'
 
 
-    const addTask = () => {
+    const joinTodo = () => {
         const todoText = value.trim();
         // for trimming the text 
 
@@ -93,7 +93,7 @@ export default function AddTask(props) {
             <button
                 type="button"
                 className="btn"
-                onClick={addTask}>
+                onClick={joinTodo}>
                 Add Task
             </button>
             {/* <Footer/> */}

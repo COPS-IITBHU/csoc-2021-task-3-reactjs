@@ -1,12 +1,12 @@
 // importing... 
 import Nav from "../components/Nav";
 import TodoListItem from "../components/TodoListItem";
-import AddTask from "../components/AddTask";
+import JoinTodo from "../components/JoinTodo";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthRequired } from "../middlewares/auth_required";
 import Script from "next/script";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../components/AppContext";
 
 
 
@@ -135,7 +135,7 @@ export default function Home() {
             <Script src="/iziToast.min.js" />
             <Nav profileName={profileName} avatarImage={avatarImage} page="index" />
             <center>
-                <AddTask addNewTask={addNewTask} />
+                <JoinTodo addNewTask={addNewTask} />
                 <ul className="flex-col mt-9 max-w-sm mb-3 ">
                     <span className="inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full ">
                         Available Tasks

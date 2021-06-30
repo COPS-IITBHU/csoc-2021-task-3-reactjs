@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "./AppContext";
 
 import Footer from "../components/Footer";
 

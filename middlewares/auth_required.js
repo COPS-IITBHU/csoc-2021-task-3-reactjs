@@ -5,7 +5,7 @@
 
 
 // importing... 
- import { useAppContext } from "../context/AppContext";
+ import { useAppContext } from "../components/AppContext";
  import Router from "next/router";
  import { useEffect } from "react";
  

@@ -20,9 +20,9 @@ const AppContext = createContext({
 
 
 
-// exporting the AppWrapper function alongwith its declaration and definition 
+// exporting the Functioning function alongwith its declaration and definition 
 
-export function AppWrapper({ children }) {
+export function Functioning({ children }) {
     const [cookies, setCookies, removeCookies] = useCookies(["token"]);
     const [token, setToken] = useState(cookies.token);
 
