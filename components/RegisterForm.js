@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import Toast from './Toast';
+import {useToast} from '../context/toast';
 
 export default function Register() {
   const { setToken } = useAuth()
   const router = useRouter()
+  const [state, show, text, spinner, setState, setShow, setText, setSpinner, hideToast] = useToast();
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -27,11 +30,9 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
       return false
     }
     return true
@@ -39,11 +40,14 @@ export default function Register() {
 
   const register = (e) => {
     e.preventDefault()
+    setShow(true);
 
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      setState('neutral');
+      setText('Signing UP');
+      setSpinner(true);
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -57,15 +61,25 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
+          setState('success');
+          setText('Created Account Successfully');
+          setSpinner(false);
+          hideToast();
+
           setToken(data.token)
-          // router.reload();
           router.push('/');
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          setState('danger');
+          setText('An account using same email or username is already created');
+          setSpinner(false);
+          hideToast();
         })
+    } else {
+        setState('danger');
+        setText('Please Fill All Fields Correctly');
+        setSpinner(false);
+        hideToast();
     }
   }
 
@@ -132,6 +146,14 @@ export default function Register() {
           </button>
         </div>
       </div>
+      <Toast 
+        neutral={state === "neutral"}
+        success={state === "success"}
+        danger={state === "danger"}
+        show={show}
+        text={text}
+        spinner={spinner}
+      />
     </div>
   )
 }

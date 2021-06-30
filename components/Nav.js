@@ -8,7 +8,6 @@ import {useCookies} from 'react-cookie';
 export default function Nav() {
   const { token, logout, profileName, avatarImage } = useAuth()
   const [show, setShow] = useState(null);
-  console.log("render");
 
   useEffect(() => {
     if (token) {

@@ -3,6 +3,8 @@
 import axios from "../utils/axios";
 import { useRef } from "react";
 import {useAuth} from '../context/auth';
+import Toast from './Toast';
+import {useToast} from '../context/toast';
 
 export default function TodoListItem(props) {
   const updateFieldRef =  useRef(null);
@@ -11,6 +13,7 @@ export default function TodoListItem(props) {
   const editAndDeleteRef = useRef(null);
   const containerRef = useRef(null);
   const {token} = useAuth();
+  const [state, show, text, spinner, setState, setShow, setText, setSpinner, hideToast] = useToast();
 
   const hideClasses = () => {
     updateFieldRef.current.classList.remove('hideme');
@@ -31,6 +34,11 @@ export default function TodoListItem(props) {
   }
 
   const deleteTask = (id) => {
+    setShow(true);
+    setSpinner(true);
+    setState('neutral');
+    setText("Deleteing Task")
+
     axios({
       url : `todo/${id}/`,
       method : 'delete',
@@ -39,7 +47,6 @@ export default function TodoListItem(props) {
       }
     })
     .then(response => {
-      console.log("Deleted Successfully");
 
       const event = new CustomEvent('deletedTask', {
         bubbles : true,
@@ -48,9 +55,13 @@ export default function TodoListItem(props) {
         }
       });
       containerRef.current.dispatchEvent(event);
+
     })
     .catch(error => {
-      console.log("Something Went Wrong.")
+      setState('danger');
+      setSpinner(false);
+      setText("Something Went Wrong");
+      hideToast();
     })
   }
 
@@ -58,6 +69,11 @@ export default function TodoListItem(props) {
     const title = updateFieldRef.current.value;
 
     if (title !== "") {
+      setShow(true);
+      setSpinner(true);
+      setState('neutral');
+      setText("Updating Task")
+
       const data = {title};
 
       axios({
@@ -71,10 +87,21 @@ export default function TodoListItem(props) {
       .then(({data, status}) => {
         titleRef.current.textContent = data.title;
         showClasses();
+
+        setSpinner(false);
+        setState('success');
+        setText("Task Updated Successfully");
+        hideToast();
+
       })
       .catch(error => {
-        console.log("Something Went Wrong.");
+
         showClasses();
+        setSpinner(false);
+        setState('danger');
+        setText("Something Went Wrong");
+        hideToast();
+
       })
     } else {
       showClasses();
@@ -147,6 +174,14 @@ export default function TodoListItem(props) {
           </button>
         </span>
       </li>
+      <Toast
+        neutral={state === "neutral"}
+        success={state === "success"}
+        danger={state === "danger"}
+        show={show}
+        text={text}
+        spinner={spinner}
+      />
     </>
   );
 }

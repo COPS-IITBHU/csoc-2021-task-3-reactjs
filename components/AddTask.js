@@ -1,40 +1,66 @@
 import { useRef } from "react";
 import axios from '../utils/axios';
 import {useAuth} from '../context/auth';
+import Toast from './Toast';
+import {useToast} from '../context/toast';
 
 export default function AddTask() {
   const taskRef = useRef(null);
   const {token} = useAuth();
+  const [state, show, text, spinner, setState, setShow, setText, setSpinner, hideToast] = useToast();
 
   const addTask = () => {
      const title = taskRef.current.value;
 
      if (title != "") {
+      setShow(true);
+      setState('neutral');
+      setText("Adding Task");
+      setSpinner(true);
+
        const data = {
-         title
-       }
- 
+         title,
+       };
+
        axios({
-         url : 'todo/create/',
-         method : 'post',
-         headers : {
-           'Authorization' : `Token ${token}`
+         url: "todo/create/",
+         method: "post",
+         headers: {
+           Authorization: `Token ${token}`,
          },
-         data
+         data,
        })
-       .then(({data, status}) => {
-         const event = new CustomEvent('addedTask', {
-           bubbles : true
+         .then(({ data, status }) => {
+           const event = new CustomEvent("addedTask", {
+             bubbles: true,
+           });
+           taskRef.current.dispatchEvent(event);
+
+           setState('success');
+           setText("Task Added Successfully");
+           setSpinner(false);
+           hideToast();
+
+         })
+         .catch((err) => {
+
+           setState('danger');
+           setText("Something Went Wrong.");
+           setSpinner(false);
+           hideToast();
+
          });
-         taskRef.current.dispatchEvent(event);
-       })
-       .catch((err) => {
-         console.log("Something Went Wrong.");
-       })
+     } else {
+       setShow(true);
+      setState('danger');
+      setText("Task Cannot be Empty.");
+      setSpinner(false);
+      hideToast();
      }
   }
 
   return (
+    <>
     <div className='flex items-center max-w-sm mt-24'>
       <input
         type='text'
@@ -50,5 +76,14 @@ export default function AddTask() {
         Add Task
       </button>
     </div>
+    <Toast 
+      show={show}
+      neutral={state === 'neutral'}
+      danger={state === 'danger'}
+      success={state === 'success'}
+      spinner={spinner}
+      text={text}
+    />
+    </>
   )
 }

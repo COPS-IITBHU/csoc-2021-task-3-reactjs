@@ -2,14 +2,22 @@ import React, { useRef } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import Toast from './Toast';
+import {useToast} from '../context/toast';
 
 export default function RegisterForm() {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const router = useRouter();
   const {setToken} = useAuth();
+  const [state, show, text, spinner, setState, setShow, setText, setSpinner, hideToast] = useToast();
 
   const login = () => {
+    setShow(true);
+    setState('neutral');
+    setText('Logging IN');
+    setSpinner(true);
+
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
 
@@ -26,12 +34,23 @@ export default function RegisterForm() {
       })
       .then(({data,status}) => {
         setToken(data.token)
-        // router.reload();
         router.push('/');
+        setState('success');
+        setText("Logged IN Successfully.");
+        setSpinner(false);
+        hideToast();
       })
       .catch(error => {
-        console.log("Enter Correct Credentials.");
+        setSpinner(false);
+        setState('danger');
+        setText("Enter Correct Credentials.")
+        hideToast();
       })
+    } else {
+      setSpinner(false);
+      setState('danger');
+      setText("Username And Password Cannot be Empty.")
+      hideToast();
     }
   }
 
