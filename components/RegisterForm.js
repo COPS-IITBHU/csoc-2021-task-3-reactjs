@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import React, { useState } from "react";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "./AppContext";
 import { useRouter } from "next/router";
 
 

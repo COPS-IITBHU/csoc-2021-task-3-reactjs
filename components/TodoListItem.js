@@ -110,7 +110,7 @@ export default function TodoListItem(props) {
     // returning whatever we require according to the requirements 
 
     return (
-        <>
+        <React.Fragment>
             <li className="border flex border-gray-500 rounded px-2 py-2 justify-between items-center mb-2">
                 <input
                     id={`input-button-${props.id}`}
@@ -187,6 +187,6 @@ export default function TodoListItem(props) {
 
                 </span>
             </li>
-        </>
+        </React.Fragment>
     );
 }

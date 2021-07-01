@@ -22,8 +22,8 @@ const AppContext = createContext({
 // exporting the Functioning function alongwith its declaration and definition 
 
 export function Functioning({ children }) {
-    const [token, setToken] = useState(cookies.token);
     const [cookies, setCookies, removeCookies] = useCookies(["token"]);
+    const [token, setToken] = useState(cookies.token);
 
     const logout = () => {
         setToken("");

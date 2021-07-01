@@ -152,6 +152,10 @@ export default function Home() {
                     ))}
                 </ul>
             </center>
+
+            {/* button to remove all the todos at once  */}
+
+            <button className='btn remove-all' > Remove All Todos</button>
         </div>
     );
 }

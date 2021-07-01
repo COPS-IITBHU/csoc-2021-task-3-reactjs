@@ -6,7 +6,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "./AppContext";
 import Link from 'next/link'
 
 

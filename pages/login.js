@@ -8,11 +8,7 @@ import Footer from "../components/Footer";
 
 
 
-    // this line of code change the title of the page 
-    useEffect(()=>{
-        document.title="Login Page"
-    })
-    
+
 
 
 
@@ -21,9 +17,13 @@ import Footer from "../components/Footer";
 
 export default function Login() {
     useNoAuthRequired();
-
-// returning whatever we want to meet our requirements and to complete the task 
-
+    // this line of code change the title of the page 
+    useEffect(()=>{
+        document.title="Login Page"
+    })
+    
+    // returning whatever we want to meet our requirements and to complete the task 
+    
     return (
         <div>
             <Nav />

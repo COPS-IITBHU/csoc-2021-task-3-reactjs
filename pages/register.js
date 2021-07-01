@@ -9,17 +9,17 @@ import Footer from "../components/Footer";
 
 
 
-    // this line of code change the title of the page 
-    useEffect(()=>{
-        document.title="Index"
-    })
-    
+
 
 
 
 // exporting the default function Register 
 export default function Register() {
     useNoAuthRequired();
+    // this line of code change the title of the page 
+    useEffect(()=>{
+        document.title="Index"
+    })
 
 
     // returning whatever we want to meet the requrirements to complete the task 

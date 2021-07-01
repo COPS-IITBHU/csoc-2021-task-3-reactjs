@@ -195,3 +195,8 @@ font-size: 90px;
   width: 100%;
   margin-bottom: -20px;
 }
+.remove-all{
+  width: auto;
+  display: block;
+  margin: auto;
+}
