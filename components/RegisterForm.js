@@ -27,7 +27,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.');
+      iziToast.destroy();
+      iziToast.info({
+        title:"Info",
+        message:"Please Enter valid details"
+      });
       return false;
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {

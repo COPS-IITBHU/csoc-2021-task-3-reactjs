@@ -3,7 +3,7 @@ import AddTask from '../components/AddTask'
 import { useEffect, useRef, useState } from 'react'
 import axios from '../utils/axios';
 import { useAuth } from '../context/auth';
-import Script from "next/script";
+import Script from 'next/script';
 //import iziToast from 'izitoast';
 import AuthRequired  from '../middlewares/auth_required.js';
 import router from 'next/router';
@@ -35,6 +35,11 @@ export default function Home() {
       //   message:"Loaded all the tasks"
       // })
       setTaskList(res.data);
+      iziToast.destroy();
+      iziToast.success({
+        title:"Welcome",
+        message:"Loading Tasks"
+      })
      
       
     })
@@ -80,7 +85,8 @@ export default function Home() {
 
   return (
     <div>
-      {/*<Script src="/iziToast.min.js" /> */}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"></link>
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></Script>
       <center>
         <AddTask addNewTask={addTask}/>
         <ul className='flex-col mt-9 max-w-sm mb-3 '>

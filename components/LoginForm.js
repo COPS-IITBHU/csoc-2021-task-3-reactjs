@@ -12,7 +12,11 @@ export default function RegisterForm() {
   const loginFieldsValid =(username,password) => {
     if(username==='' || password==='')
     {
-      console.log('Please Enter Valid Details');
+      iziToast.destroy();
+      iziToast.info({
+        title:"Info",
+        message:"Please Enter valid details"
+      });
       return false;
     }
     return true;
@@ -29,7 +33,12 @@ export default function RegisterForm() {
    
     
     if(loginFieldsValid(username,password)){
-      console.log("Please Wait...")
+      iziToast.destroy();
+      iziToast.info({
+        title:"Info",
+        message:"Please Wait...."
+      })
+
       const dataForApiRequest={
         "username":username,
         "password":password,
@@ -38,19 +47,23 @@ export default function RegisterForm() {
       axios.post('auth/login/',dataForApiRequest)
       .then(
         ({data}) => {
-          console.log("Logging In");
           setToken(data.token);
           //console.log(data.token);
           router.push('/');
-        }
-      )
+          iziToast.destroy();
+          iziToast.succcess({
+            title:"Success",
+            message:"Logged In"
+          })
+    })
       .catch(
         () => {
-          // immediateToast("error",{
-          //   message:"Wrong",
-          //   timeout:50000
-          // });
-          console.log("Some Error Ocurred");
+          iziToast.destroy();
+      iziToast.error({
+        title:"Error",
+        message:"This User Account does not exist"
+      })
+      
         }
       )
 

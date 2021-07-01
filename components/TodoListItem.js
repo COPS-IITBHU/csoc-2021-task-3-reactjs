@@ -35,10 +35,20 @@ export default function TodoListItem(props) {
       method:'DELETE',
     })
     .then((res) => {
-      console.log("Deleted Successfully");
       deleteThisTask(id);
+      iziToast.destroy();
+      iziToast.success({
+        title:"Success",
+        message:"Task Deleted Successfully"
+      })
     })
-    .catch(() => console.log("Some Error Occured"));
+    .catch(() => {
+      iziToast.destroy();
+      iziToast.error({
+        title:"Error",
+        message:"Something Went Wrong"
+      })
+    })
 
 
   }
@@ -51,13 +61,16 @@ export default function TodoListItem(props) {
      */
     if(updatedTask==='')
     {
-      console.log("Please Enter Something");
+      iziToast.destroy();
+      iziToast.info({
+        title:"Info",
+        message:"Please Enter Something"
+      })
       return;
     }
     const dataForAPIRequest={
       title:updatedTask
     }
-    console.log("Update Clicked");
     axios({
       headers:{
         Authorization:'Token '+token
@@ -68,12 +81,22 @@ export default function TodoListItem(props) {
 
     })
     .then((res) => {
-      console.log(res.data);
       setEdit(false);
       setNewTask(res.data.title);
+      iziToast.destroy();
+      iziToast.success({
+        title:"Success",
+        message:"Task Updated Successfully"
+      })
 
     })
-    .catch((err) => console.log(err))
+    .catch(() => {
+      iziToast.destroy();
+      iziToast.error({
+        title:"Error",
+        message:"Something Went Wrong"
+      })
+    })
 
   }
 
@@ -84,7 +107,7 @@ export default function TodoListItem(props) {
             id={'input-button-'+id}
             type='text'
             className={`${edit?"":"hideme"} appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring  todo-edit-task-input`}
-            placeholder='Edit The Task'
+            placeholder={task}
             onChange={(e) => setTask(e.target.value)}
           />
           <div id={'done-button-'+id} className={edit?"":"hideme"}>
