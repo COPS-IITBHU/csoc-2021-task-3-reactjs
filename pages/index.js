@@ -155,6 +155,7 @@ export default function Home() {
 
             {/* button to remove all the todos at once  */}
 
+            {/* <button className='btn remove-all' onClick={removeAllTodo}> Remove All Todos</button> */}
             <button className='btn remove-all' > Remove All Todos</button>
         </div>
     );

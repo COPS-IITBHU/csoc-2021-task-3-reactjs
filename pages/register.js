@@ -2,7 +2,6 @@
 
 import { useNoAuthRequired } from "../middlewares/no_auth_required";
 import React, { useEffect } from "react";
-import Script from "next/script";
 import Nav from "../components/Nav";
 import RegisterForm from "../components/RegisterForm";
 import Footer from "../components/Footer";
@@ -25,7 +24,6 @@ export default function Register() {
     // returning whatever we want to meet the requrirements to complete the task 
     return (
         <div>
-            <Script src="/iziToast.min.js" />
             <Nav />
             <RegisterForm />
             <Footer/>

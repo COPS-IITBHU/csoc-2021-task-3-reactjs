@@ -65,7 +65,7 @@ export default function Nav({ profileName = "Loading", avatarImage = "", page = 
                             <ul className="absolute hidden text-gray-700 pt-1 group-hover:block">
                                 <li className="">
                                     <button
-                                        className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={logout}>
+                                        className=" bg-yellow-200 hover:bg-black-400 py-2 px-4 block whitespace-no-wrap" href="#" onClick={logout}>
                                         Logout
                                     </button>
                                 </li>
