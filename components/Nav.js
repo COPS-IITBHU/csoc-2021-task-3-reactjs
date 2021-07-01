@@ -10,13 +10,7 @@ import { useEffect, useState } from 'react';
 
 export default function Nav() {
   const { logout, profileName, avatarImage,token } = useAuth();
-  const [logoutState,setLogut]=useState(false);
-  const [state,setState]=useState(null)
-  const logoutUser = () => {
-    setLogut(true);
-    logout();
-
-  }
+  const [state,setState]=useState(null);
   useEffect(() => {
     if(token)
     {
@@ -47,7 +41,7 @@ export default function Nav() {
           <a
             className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
             href='#'
-            onClick={logoutUser}
+            onClick={logout}
           >
             Logout
           </a>

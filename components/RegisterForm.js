@@ -65,9 +65,12 @@ export default function Register() {
           router.push('/');
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          iziToast.destroy();
+          iziToast.error({
+            title:"Error",
+            message:"An account using same email or username is already created"
+          })
+         
         })
     }
   }

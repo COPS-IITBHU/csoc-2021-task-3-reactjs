@@ -17,11 +17,10 @@ export const AuthProvider = ({ children }) => {
     setTokenState(token);
   };
   const deleteToken = () => {removeCookies('token');
-  setTokenState('');
+  setTokenState(undefined);
 }
   const logout = () => {
     deleteToken();
-    //deleteToken();
     router.push('/login');
     iziToast.destroy();
     iziToast.success({

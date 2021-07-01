@@ -9,13 +9,10 @@ import AuthRequired  from '../middlewares/auth_required.js';
 import router from 'next/router';
 
 export default function Home() {
-  const { token } = useAuth();
-  const [taskList,setTaskList]=useState([{title:"Sample Task",
-                                          id:1}]);
+  const { token,setAvatarImage,setProfileName } = useAuth();
+  const [taskList,setTaskList]=useState([]);
   
-  useEffect(() => {
-    getTasks();
-  },[]);
+  
   
 
   function getTasks() {
@@ -32,22 +29,18 @@ export default function Home() {
       }
     })
     .then((res) => {
-      // iziToast.destroy();
-      // iziToast.success({
-      //   title:"Welcome",
-      //   message:"Loaded all the tasks"
-      // })
+      console.log(token);
       setTaskList(res.data);
       iziToast.destroy();
       iziToast.success({
-        title:"Welcome",
-        message:"Loading Tasks"
+        message:"Loaded All the tasks Successfully"
       })
+     
      
       
     })
     .catch(() => {
-      console.log(token);
+      
       iziToast.destroy();
       iziToast.error({
         title:"Error",
@@ -59,6 +52,35 @@ export default function Home() {
    
   
   };
+
+  useEffect(() => {
+    if (token) {
+      axios
+        .get('auth/profile/', {
+          headers: {
+            Authorization: 'Token ' + token,
+          },
+        })
+        .then((response) => {
+          setAvatarImage(
+            'https://ui-avatars.com/api/?name=' +
+              response.data.name +
+              '&background=fff&size=33&color=007bff'
+          );
+          setProfileName(response.data.name);
+          iziToast.destroy();
+          iziToast.success({
+            title:"Welcome",
+            message:"Loading Tasks"
+          })
+          getTasks();
+        })
+        .catch((error) => {
+          console.log('Some error occurred');
+        })
+    }
+  }, []);
+  
 
 
   function addTask(t){

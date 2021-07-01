@@ -8,7 +8,7 @@ export default function RegisterForm() {
   const router= useRouter();
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
-  const { token, setToken }=useAuth();
+  const { setToken }=useAuth();
 
   const loginFieldsValid =(username,password) => {
     if(username==='' || password==='')
@@ -52,18 +52,18 @@ export default function RegisterForm() {
       })
       .then(
         ({data}) => {
-          setToken(data.token);
           console.log(data.token);
-          router.push('/');
+          setToken(data.token);
           iziToast.destroy();
-          iziToast.succcess({
+          iziToast.success({
             title:"Success",
             message:"Logged In"
           })
+          router.push('/');
     })
       .catch(
-        () => {
-          console.log(dataForApiRequest);
+        (err) => {
+          console.error(err);
           iziToast.destroy();
           iziToast.error({
             title:"Error",
