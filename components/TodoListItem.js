@@ -115,9 +115,12 @@ export default function TodoListItem(props) {
         // var myobjlength = myobj.length
         // console.log((myobjlength.length))
 
+        // console.log(props.id)
+
+
+        
         let str = JSON.stringify(props)
         let counter =0
-        console.log(props.id)
         for (let ob in props){
             counter++;
             // console.log(ob.length)
