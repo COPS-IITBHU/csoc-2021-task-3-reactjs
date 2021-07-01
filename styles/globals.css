@@ -22,3 +22,60 @@
 .todo-task {
   max-width: 260px;
 }
+
+.container {
+  margin-top: 15%;
+}
+
+.img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin: 3% 0;
+}
+
+.avatar-box {
+  text-align: center;
+  padding-left: 2%;
+  width: 35vmin;
+}
+
+.avatar {
+  float: left;
+}
+
+.tasks {
+  padding: 0 20%;
+}
+
+/* 992 */
+@media only screen and (min-width: 992px) {
+  .input-container {
+    margin-bottom: 5%;
+  }
+
+  .add-task-input {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .nav-items {
+    margin-left: 3%;
+  }
+
+  .avatar-box {
+    width: 75vmin;
+  }
+
+  .tasks {
+    padding: 0;
+    margin: 0 10%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .add-task-btn {
+    margin-top: 15px;
+  }
+}

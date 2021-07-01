@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import { Button } from 'react-bootstrap'
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -121,14 +122,14 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
-
-          <button
+          
+          <Button variant="outline-success"
             type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
+            size="lg"
+            style={{ width: "100%"}}
+            onClick={register}>
             Register
-          </button>
+          </Button>
         </div>
       </div>
     </div>

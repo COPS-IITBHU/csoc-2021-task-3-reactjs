@@ -1,25 +1,57 @@
-export default function AddTask() {
-  const addTask = () => {
-    /**
-     * @todo Complete this function.
-     * @todo 1. Send the request to add the task to the backend server.
-     * @todo 2. Add the task in the dom.
-     */
+import axios from "../utils/axios"
+import { API_URL } from "../utils/constants"
+import { useAuth } from "../context/auth"
+import React, { useState } from "react"
+import { Button, Container, Col, Row, Form } from "react-bootstrap"
+
+export default function AddTask(props) {
+  const { token } = useAuth()
+  const [tasks, setTasks] = useState([])
+  const [title, setTitle] = useState('')
+
+  function handleChange(event) {
+    const newTitle = event.target.value
+    setTitle(newTitle)
   }
+
+  const addTask = () => {
+    axios({
+      url: API_URL + 'todo/create/',
+      method: 'post',
+      data: {
+        title: title
+      },
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    }).then(response => {
+      console.log(response);
+      console.log("Added Task!")
+      setTasks(prevTasks => {
+        return [...prevTasks, title]
+      })
+      setTitle('')
+      props.onClick();
+    }).catch(error => {
+      console.log(error);
+      console.log("Could not add task!")
+    })
+  }
+
   return (
-    <div className='flex items-center max-w-sm mt-24'>
-      <input
-        type='text'
-        className='todo-add-task-input px-4 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full'
-        placeholder='Enter Task'
-      />
-      <button
-        type='button'
-        className='todo-add-task bg-transparent hover:bg-green-500 text-green-700 text-sm hover:text-white px-3 py-2 border border-green-500 hover:border-transparent rounded'
-        onClick={addTask}
-      >
-        Add Task
-      </button>
+    <div className="pt-20 input-container">
+      <Container fluid={10}>
+        <Row>
+          <Col className="task-input">
+            <Form>
+              <Form.Control size="lg" className="add-task-input" onChange={handleChange} value={title} type="text" placeholder="Enter Task" />
+            </Form>
+          </Col>
+          <Col md="auto" className="task-input">
+            <Button variant="outline-success" size="lg" className="add-task-btn" onClick={addTask} type='button'>Add Task</Button>
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }
