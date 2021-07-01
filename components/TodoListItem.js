@@ -6,6 +6,7 @@ import Image from "next/image";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useAppContext } from "./AppContext";
+import { useEffect } from "react";
 
 
 
@@ -105,7 +106,24 @@ export default function TodoListItem(props) {
             });
     };
 
+    const[count,setCount]=useState(0)
+    var counter = {};
+    useEffect(()=>{
+        
+        // var obj = Object.assign(counter,props)
+        // var myobj = JSON.stringify(obj)
+        // var myobjlength = myobj.length
+        // console.log((myobjlength.length))
 
+        let str = JSON.stringify(props)
+        let counter =0
+        console.log(props.id)
+        for (let ob in props){
+            counter++;
+            // console.log(ob.length)
+        }
+        console.log(counter)
+    })
 
     // returning whatever we require according to the requirements 
 

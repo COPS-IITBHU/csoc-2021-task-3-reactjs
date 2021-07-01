@@ -57,7 +57,7 @@ export default function JoinTodo(props) {
                     const newTask = data[data.length - 1];
                     props.addNewTask(newTask);
                     
-                    alert("new todo added successfully")
+                    alert(`new todo added successfully ✔`)
                 });
             }) 
             // promises part 
