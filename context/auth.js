@@ -3,19 +3,24 @@ import { useCookies } from 'react-cookie';
 import axios from '../utils/axios';
 import { useRouter } from 'next/router';
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [profileName, setProfileName] = useState('');
   const [avatarImage, setAvatarImage] = useState('#');
   const [cookies, setCookies, removeCookies] = useCookies(['auth']);
-  const token = cookies.token;
+  const [token,setTokenState]=useState(cookies.token);
 
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' });
-  const deleteToken = () => removeCookies('token');
+  const setToken = (newToken) => {
+    setCookies('token', newToken, { path: '/' });
+    setTokenState(token);
+  };
+  const deleteToken = () => {removeCookies('token');
+  setTokenState('');
+}
   const logout = () => {
-    setToken('');
+    deleteToken();
     //deleteToken();
     router.push('/login');
     iziToast.destroy();

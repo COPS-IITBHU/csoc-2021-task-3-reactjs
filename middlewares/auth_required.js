@@ -6,22 +6,27 @@ import { useEffect } from "react";
  * @todo Redirect the user to login page if token is not present.
  */
 
-export default function AuthRequired(){
+const AuthRequired=(props) => {
     const { token }=useAuth();
     const router=useRouter();
    useEffect(() => {
-    if(token===null)
+    if(!token)
     {
         router.replace('/login/');
  
     }
+    
 
-   })
+   },[])
+
+   return props.children;
    
     
 
 
 }
+
+export default AuthRequired;
 
 
 

@@ -2,6 +2,7 @@ import axios from '../utils/axios';
 import { useAuth } from '../context/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { data } from 'autoprefixer';
 
 export default function RegisterForm() {
   const router= useRouter();
@@ -44,11 +45,15 @@ export default function RegisterForm() {
         "password":password,
       }
 
-      axios.post('auth/login/',dataForApiRequest)
+      axios({
+        url:'auth/login/',
+        method:'POST',
+        data:dataForApiRequest
+      })
       .then(
         ({data}) => {
           setToken(data.token);
-          //console.log(data.token);
+          console.log(data.token);
           router.push('/');
           iziToast.destroy();
           iziToast.succcess({
@@ -58,11 +63,12 @@ export default function RegisterForm() {
     })
       .catch(
         () => {
+          console.log(dataForApiRequest);
           iziToast.destroy();
-      iziToast.error({
-        title:"Error",
-        message:"This User Account does not exist"
-      })
+          iziToast.error({
+            title:"Error",
+            message:"This User Account does not exist"
+          })
       
         }
       )

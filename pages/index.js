@@ -9,12 +9,13 @@ import AuthRequired  from '../middlewares/auth_required.js';
 import router from 'next/router';
 
 export default function Home() {
-  AuthRequired();
   const { token } = useAuth();
   const [taskList,setTaskList]=useState([{title:"Sample Task",
                                           id:1}]);
-  //console.log(taskList);
-
+  
+  useEffect(() => {
+    getTasks();
+  },[]);
   
 
   function getTasks() {
@@ -23,6 +24,8 @@ export default function Home() {
      * @todo Set the tasks state and display them in the using TodoListItem component
      * The user token can be accessed from the context using useAuth() from /context/auth.js
      */
+    if(token)
+    {
      axios.get('todo/',{
       headers:{
         Authorization:'Token '+token,
@@ -44,21 +47,20 @@ export default function Home() {
       
     })
     .catch(() => {
-      //router.push('/login/')
-      console.log("Some Error Occured");
+      console.log(token);
+      iziToast.destroy();
+      iziToast.error({
+        title:"Error",
+        message:"Something Went Wrong"
+      })
     });
+  }
     
    
   
   };
 
-  useEffect(() => {
-    getTasks();
-    
 
-
-
-  },[]);
   function addTask(t){
     const temp=[...taskList,t];
     setTaskList(temp);
@@ -84,6 +86,7 @@ export default function Home() {
   
 
   return (
+    <AuthRequired>
     <div>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"></link>
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></Script>
@@ -107,6 +110,7 @@ export default function Home() {
         </ul>
       </center>
     </div>
+    </AuthRequired>
   )
 }
 
