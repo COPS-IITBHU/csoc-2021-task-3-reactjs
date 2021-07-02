@@ -1,11 +1,54 @@
-export default function RegisterForm() {
-  const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
+import React, { useEffect, useState } from 'react'
+import axios from '../utils/axios'
+import { useAuth } from '../context/auth'
+import { useRouter } from 'next/router'
+import notif from '../components/Notif';
+import noAuthReq from '../middlewares/no_auth_required'
+
+export default function LoginForm() {
+  const { setToken } = useAuth()
+  const router = useRouter()
+
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  
+  noAuthReq()
+  
+  const loginFieldsAreValid = (
+    username,
+    password
+  ) => {
+    if (username === '' || password === '') {
+      notif('Error','Please fill all the fields correctly','danger')
+      return false
+    }
+    return true
+  }
+
+  const login = (e) => {
+
+     if (
+       loginFieldsAreValid(username, password)
+     ) {
+       notif('Info','Please wait...','info')
+ 
+       const dataForApiRequest = {
+         username: username,
+         password: password,
+       }
+ 
+       axios.post(
+         'auth/login/',
+         dataForApiRequest,
+       )
+         .then(function ({ data, status }) {
+           setToken(data.token)
+           router.push('/')
+         })
+         .catch(function (err) {
+           notif('Error','Invalid Username or password','danger')
+         })
+     }
   }
 
   return (
@@ -18,6 +61,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputUsername'
             id='inputUsername'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder='Username'
           />
 
@@ -26,6 +71,8 @@ export default function RegisterForm() {
             className='block border border-grey-light w-full p-3 rounded mb-4'
             name='inputPassword'
             id='inputPassword'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
 

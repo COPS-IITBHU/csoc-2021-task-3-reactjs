@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import notif from '../components/Notif';
+import noAuthReq from '../middlewares/no_auth_required'
 
 export default function Register() {
   const { setToken } = useAuth()
   const router = useRouter()
+
+  noAuthReq()
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -27,11 +31,11 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      notif('Error','Please fill all the fields correctly','danger')
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      notif('Error','Please enter a valid email address','danger')
       return false
     }
     return true
@@ -43,7 +47,7 @@ export default function Register() {
     if (
       registerFieldsAreValid(firstName, lastName, email, username, password)
     ) {
-      console.log('Please wait...')
+      notif('Info','Please wait...','info')
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -61,9 +65,7 @@ export default function Register() {
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          notif('Error','An account using same email or username is already created','danger')
         })
     }
   }
