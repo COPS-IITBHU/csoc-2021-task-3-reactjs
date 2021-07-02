@@ -23,7 +23,7 @@ export default function NavBar() {
   const [minute, setMinute] = useState(min)
   
   function updateTime() {
-    const newHour = (hour + 11) % 12 + 1
+    const newHour = (new Date().getHours() + 11) % 12 + 1
     const newSuffix = new Date().getHours() > 11 ? "PM" : "AM"
     const newMinute = new Date().getMinutes() > 9 ? new Date().getMinutes() : ('0' + new Date().getMinutes())
 
@@ -50,7 +50,7 @@ export default function NavBar() {
       <Navbar.Brand className="time nav-items fs-5">
         {date + " " + months[month] + " " + hour + ":" + minute + " " + suffix}
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginRight: "30px" }}/>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginLeft: "auto", marginRight: "30px" }}/>
 
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className={ !notLoggedIn ? "hideme" : null + "ml-5 fs-5"}>
