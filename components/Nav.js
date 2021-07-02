@@ -47,7 +47,7 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Navbar.Brand href="/" style={{ marginLeft: "5%" }} className="ml-5 font-bold fs-3">Todo</Navbar.Brand>
-      <Navbar.Brand className="time nav-items fs-5">
+      <Navbar.Brand className="time nav-items fs-5" style={{ marginLeft: "auto"}}>
         {date + " " + months[month] + " " + hour + ":" + minute + " " + suffix}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginLeft: "auto", marginRight: "30px" }}/>
@@ -75,6 +75,7 @@ export default function NavBar() {
                   onClick={() => {
                     toast.info("Logged out!", {
                       position: "bottom-right",
+                      autoClose: 2000
                     })
                     logout()
                   }}
