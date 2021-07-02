@@ -10,13 +10,22 @@ export const AuthProvider = ({ children }) => {
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
+  const [token, setTokenState] = useState(cookies.token);
 
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
+  const setToken = (newToken) => {
+    setTokenState(newToken);
+    setCookies("token", newToken, { path: "/" });
+  };
+  const deleteToken = () => {
+    setTokenState(null);
+    removeCookies("token");
+  };
+  
   const logout = () => {
     deleteToken()
     router.push('/login')
+    setProfileName('')
+    setAvatarImage('#')
   }
 
   useEffect(() => {

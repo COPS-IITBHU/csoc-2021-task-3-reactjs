@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import { Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -40,9 +43,7 @@ export default function Register() {
   const register = (e) => {
     e.preventDefault()
 
-    if (
-      registerFieldsAreValid(firstName, lastName, email, username, password)
-    ) {
+    if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
       console.log('Please wait...')
 
       const dataForApiRequest = {
@@ -57,20 +58,24 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
+          toast.info("Registering...", {
+            position: "bottom-right",
+          })
           setToken(data.token)
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          console.log('An account using same email or username is already created')
+          toast.error("An account using same email or username is already created", {
+            position: "bottom-right",
+          })
         })
     }
   }
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
+      <div className='container max-w-sm flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Register</h1>
           <input
@@ -121,16 +126,17 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder='Password'
           />
-
-          <button
+          
+          <Button variant="outline-success"
             type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={register}
-          >
+            size="lg"
+            style={{ width: "100%"}}
+            onClick={register}>
             Register
-          </button>
+          </Button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
