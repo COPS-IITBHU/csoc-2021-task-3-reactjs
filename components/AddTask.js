@@ -3,6 +3,8 @@ import { API_URL } from "../utils/constants"
 import { useAuth } from "../context/auth"
 import React, { useState } from "react"
 import { Button, Container, Col, Row, Form } from "react-bootstrap"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function AddTask(props) {
   const { token } = useAuth()
@@ -12,6 +14,13 @@ export default function AddTask(props) {
   function handleChange(event) {
     const newTitle = event.target.value
     setTitle(newTitle)
+  }
+
+  function notify(){
+    toast.success("Task added successfully!", {
+      position: "bottom-right",
+      autoClose: 3000
+    })
   }
 
   const addTask = () => {
@@ -26,15 +35,17 @@ export default function AddTask(props) {
       }
     }).then(response => {
       console.log(response);
-      console.log("Added Task!")
       setTasks(prevTasks => {
         return [...prevTasks, title]
       })
       setTitle('')
       props.onClick();
+      notify()
     }).catch(error => {
       console.log(error);
-      console.log("Could not add task!")
+      toast.error("Couldn't add task!", {
+        position: "bottom-right",
+      })
     })
   }
 
@@ -52,6 +63,7 @@ export default function AddTask(props) {
           </Col>
         </Row>
       </Container>
+      <ToastContainer />
     </div>
   )
 }

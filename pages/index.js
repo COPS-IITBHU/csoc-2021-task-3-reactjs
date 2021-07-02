@@ -6,10 +6,24 @@ import { useAuth } from '../context/auth'
 import { API_URL } from '../utils/constants'
 import AuthRequired from '../middlewares/auth_required'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
   const { token } = useAuth()
   const [tasks, setTasks] = useState([])
+
+  function updateToast(){
+    toast.info("Task updated successfully!", {
+      position: "bottom-right",
+    })
+  }
+
+  function deleteToast(){
+    toast.warning("Task deleted successfully!", {
+      position: "bottom-right",
+    })
+  }
 
   function getTasks() {
     axios({
@@ -44,10 +58,12 @@ export default function Home() {
           return task.id !== id
         }))
       })
-      console.log("Task Deleted!")
+      deleteToast()
     }).catch(error => {
       console.log(error)
-      console.log("Couldn't delete task")
+      toast.error("Couldn't delete task!", {
+        position: "bottom-right",
+      })
     })
   }
 
@@ -63,11 +79,13 @@ export default function Home() {
         Authorization: 'Token ' + token
       }
     }).then(res => {
-      console.log("Task updated successfully")
+      updateToast()
       getTasks()
     }).catch(error => {
       console.log(error)
-      console.log("Couldn't update task")
+      toast.error("Couldn't update task!", {
+        position: "bottom-right",
+      })
     })
   }
 
@@ -101,7 +119,7 @@ export default function Home() {
           </div>
         </center>
       </div>
+      <ToastContainer />
     </AuthRequired>
   )
 }
-

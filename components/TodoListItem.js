@@ -5,11 +5,20 @@ import { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function TodoListItem(props) {
   const { token } = useAuth();
   const [newTitle, setNewTitle] = useState('')
   const [isNotVisible, setNotVisible] = useState(true)
+
+  function notify(){
+    toast.info("Task updated successfully!", {
+      position: "bottom-right",
+      autoClose: 3000
+    })
+  }
 
   function toggleClass() {
     setNotVisible(!isNotVisible)
@@ -56,6 +65,7 @@ export default function TodoListItem(props) {
           </Button>
         </span>
       </li>
+      <ToastContainer />
     </div>
   )
 }
