@@ -1,14 +1,18 @@
-import '../styles/globals.css'
-import { AuthProvider } from '../context/auth'
-import Nav from '../components/Nav'
+// importing... 
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <AuthProvider>
-      <Nav />
-      <Component {...pageProps} />
-    </AuthProvider>
-  )
+import "../styles/globals.css";
+import { Functioning } from "../components/AppContext";
+
+
+
+
+// declaration and defining of the function MyApp along with it's export 
+export default function MyApp({ Component, pageProps }) {
+    return (
+        <Functioning>
+            <Component {...pageProps} />
+        </Functioning>
+    );
 }
 
-export default MyApp
+

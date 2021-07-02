@@ -1,43 +1,127 @@
-export default function RegisterForm() {
-  const login = () => {
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
-  }
+// importing the necessary components
 
-  return (
-    <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
-        <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
-          <h1 className='mb-8 text-3xl text-center'>Login</h1>
-          <input
-            type='text'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputUsername'
-            id='inputUsername'
-            placeholder='Username'
-          />
 
-          <input
-            type='password'
-            className='block border border-grey-light w-full p-3 rounded mb-4'
-            name='inputPassword'
-            id='inputPassword'
-            placeholder='Password'
-          />
+// version 1.0.6
 
-          <button
-            type='submit'
-            className='w-full text-center py-3 rounded bg-transparent text-green-500 hover:text-white hover:bg-green-500 border border-green-500 hover:border-transparent focus:outline-none my-1'
-            onClick={login}
-          >
-            Login
-          </button>
+import axios from "axios";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useAppContext } from "./AppContext";
+import Link from 'next/link'
+
+
+
+
+
+// section for Login 
+export default function LoginForm() {
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+    const app = useAppContext();
+    const API_BASE_URL = "https://todo-app-csoc.herokuapp.com/";
+    const router = useRouter();
+
+
+    // login funtion 
+    const login = (e) => {
+        e.preventDefault();
+
+        if (username == "" || password == "") {
+            
+            alert("please check your data once again and fill that correctly")
+        } else {
+            alert("please wait... | processing")
+
+
+
+            const dataForApiRequest = {
+                password: password,
+                username: username
+            };
+
+
+
+            // axios definition 
+
+            axios({
+                url: API_BASE_URL + "auth/login/",
+                method: "post", data: dataForApiRequest
+            })
+                .then(function ({ data, status }) {
+                    app.login(data.token);
+                    router.replace("/");
+                })
+                .catch(function (err) {
+                    alert("either username or password is incorrect")
+                });
+        }
+    };
+
+
+
+
+    // gettting the output what we required 
+
+    return (
+        <div className="main1">
+            <div className="main2">
+                <div className="main3">
+                    <h1 className="main4">
+                        <h1 className="main5"><span id='avatar'>👤</span></h1>
+                        <br />
+                        Member Login</h1>
+
+
+                {/* above divs for the decoration of the login form  */}
+                    {/* input field to get the username and password from the user  */}
+                    <input
+                        type="text"
+                        className="enter-task input-field"
+                        name="inputUsername"
+                        id="inputUsername"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Enter your Username"
+                    />
+
+                    <input
+                        type="password"
+                        className="enter-task margin-bottom-password input-field"
+                        name="inputPassword"
+                        id="inputPassword"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your Password"
+                    />
+
+
+
+                    {/* button to submit the fields entered by the user  */}
+
+                    <button
+                        type="submit"
+                        className="btn blck login"
+                        onClick={login}>
+                        Click Here to Login
+                    </button>
+
+
+
+                    
+                    <button className='btn blck register-btn'><u><Link href='/register' >New? Sign Up First</Link></u></button>
+
+
+
+
+                    {/* forgot username and password button  */}
+                    <a href= 'https://naveen-kumar-portfolio.herokuapp.com' ><button
+                        type="submit"
+                        className="btn blck forgot"
+                         >Forgot Something Contact Us !
+                    </button></a>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    );
 }

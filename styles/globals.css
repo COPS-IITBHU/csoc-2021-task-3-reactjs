@@ -22,3 +22,187 @@
 .todo-task {
   max-width: 260px;
 }
+
+body{
+  /* min-height: 80vh; */
+  /* color: red; */
+  /* background:linear-gradient(purple,rgba(0, 0, 255, 0.644)); */
+  /* background:radial-gradient(green,transparent); */
+
+  /* version 1.0.2  */
+  /* background: radial-gradient(white,#059669);
+  background-size: cover;
+  background-position: center center; */
+
+
+
+  /* implementing the new background  */
+
+  width: 100%;
+  height: 100vh;
+  font-family: sans-serif;
+  /* color: #fff; */
+  background: linear-gradient(-55deg, #059669,#c8ecdb, #059669);
+  background-size: 400% 400%;
+  -webkit-animation: gradientBackground 10s ease infinite;
+          animation: gradientBackground 10s ease infinite;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+@keyframes animate {
+  0%{
+    background-position: 0;
+  }
+  100%{
+    background-position: 600vw;
+  }
+}
+
+
+@-webkit-keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main1{
+  /* background-color: grey; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main2{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  justify-content: center;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.main3{
+  background-color: white;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 35px;
+  padding-bottom: 25px;
+  box-shadow: black;
+  width: 100%;
+}
+.main4{
+  margin-top: 0;
+  margin-bottom: 10px;
+text-align: center;
+font-size: 20px;
+}
+.main5{
+  margin-top: 0;
+  margin-bottom: 10px;
+text-align: center;
+font-size: 90px;
+}
+#avatar{
+  border: 2px solid black;
+  border-radius: 45%;
+  padding: 15px;
+  padding-top: 5px;
+  font-size: 90px;
+
+}
+.btn{
+  color:blue;
+  background-color: white;
+  border: 3px solid blue;
+  padding: 5px 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.blck{
+  display: flex;
+  flex-direction: column;
+  /* text-align: center; */
+  align-items: center;
+  margin-top: 4px;
+  /* justify-content: center; */
+  width: 100%;
+  text-align: center;
+}
+.login{
+  color: orange;
+  border: 2px solid orange;
+  ;
+
+}
+.register-btn{
+  color: yellow;
+  border: 2px solid yellow;
+}
+.forgot{
+  color: blue;
+  border: 2px solid blue;
+}
+.enter-task{
+  padding: 5px 4px ;
+  color: gray;
+  padding-left: 50px;
+  padding-right: 70px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 3px solid green;
+}
+.available{
+  padding: 4px 20px;
+  font-size: 30px;
+}
+.todo-count{
+  color: yellow;
+}
+.input-field{
+  width: 100%;
+  border: 2px solid grey;
+  margin-bottom: 5px;
+}
+.margin-bottom-password{
+  margin-bottom: 15px;
+}
+.footer-part{
+  color: white;
+  height: auto;
+  background-color: crimson;
+  font-size: 20px;
+  font-family:sans-serif;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 8px 2px;
+
+  bottom: -40px;
+  position: absolute;
+  width: 100%;
+  margin-bottom: -20px;
+}
+.remove-all{
+  width: auto;
+  display: block;
+  margin: auto;
+}
