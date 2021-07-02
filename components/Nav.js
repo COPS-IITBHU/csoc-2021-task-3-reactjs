@@ -5,7 +5,6 @@ import { useAuth } from '../context/auth'
 import { Navbar, Nav, Button, Dropdown, DropdownButton, Image } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useState } from 'react'
-import { divide } from 'lodash'
 
 export default function NavBar() {
   const { logout, profileName, avatarImage } = useAuth()
