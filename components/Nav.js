@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-import { Navbar, Nav, Button, Dropdown, DropdownButton } from 'react-bootstrap'
+import { Navbar, Nav, Button, Dropdown, DropdownButton, Image } from 'react-bootstrap'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
@@ -25,7 +25,7 @@ export default function NavBar() {
         <Nav className="ml-auto mr-5">
           <div className="avatar-box">
             <div className="avatar">
-              <img src={avatarImage} className="img"/>
+              <Image style={{ marginTop: "20%" }} src={avatarImage} roundedCircle />
             </div>
           
             <div className="avatar">            
