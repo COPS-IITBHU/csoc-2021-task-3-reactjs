@@ -41,13 +41,6 @@
   padding: 0 25% 0 12%;
 }
 
-.time {
-  color: white;
-  font-weight: 600;
-  font-size: large;
-  padding: 0 5% 0 2%;
-}
-
 /* 992 */
 @media only screen and (min-width: 992px) {
   .input-container {
@@ -56,6 +49,13 @@
 
   .add-task-input {
     width: 30%;
+  }
+
+  .time {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    padding-left: 2%;
   }
 }
 
@@ -76,8 +76,8 @@
 
   .time {
     color: white;
-    margin-top: auto;
-    margin-right: 10%;
+    font-weight: 600;
+    font-size: large;
   }
 }
 

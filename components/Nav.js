@@ -13,20 +13,23 @@ export default function NavBar() {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   const [date, setDate] = useState(new Date().getDate())
   const [month, setMonth] = useState(new Date().getMonth())
-  const [hour, setHour] = useState(new Date().getHours())
-  const [minute, setMinute] = useState(new Date().getMinutes())
-  const [hr, setHr] = useState(new Date().getHours())
-  const [suffix, setSuffix] = useState(hr >= 12 ? "PM" : "AM")
+  const hr = (new Date().getHours() + 11) % 12 + 1
+  const suf = new Date().getHours() > 11 ? "PM" : "AM"
+  const [suffix, setSuffix] = useState(suf)
+  const [hour, setHour] = useState(hr)
+  const min = new Date().getMinutes() > 9 ? new Date().getMinutes() : ('0' + new Date().getMinutes())
+  const [minute, setMinute] = useState(min)
   
   function updateTime() {
-    setHour(new Date().getHours())
-    setHr(new Date().getHours())
-    setSuffix(hr >= 12 ? "PM":"AM");
-    setHour((hour + 11) % 12 + 1)
+    const newHour = (hour + 11) % 12 + 1
+    const newSuffix = new Date().getHours() > 11 ? "PM" : "AM"
+    const newMinute = new Date().getMinutes() > 9 ? new Date().getMinutes() : ('0' + new Date().getMinutes())
 
     setDate(new Date().getDate())
     setMonth(new Date().getMonth())
-    setMinute(new Date().getMinutes())
+    setHour(newHour)
+    setMinute(newMinute)
+    setSuffix(newSuffix)
   }
 
   setInterval(updateTime, 1000)
@@ -40,6 +43,9 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Navbar.Brand href="/" style={{ marginLeft: "5%" }} className="ml-5 font-bold fs-3">Todo</Navbar.Brand>
+      <Navbar.Brand className="time nav-items fs-5">
+        {date + " " + months[month] + " " + hour + ":" + minute + " " + suffix}
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginRight: "30px" }}/>
 
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -47,10 +53,6 @@ export default function NavBar() {
           <Nav.Link href="/login" className="nav-items">Login</Nav.Link>
           <Nav.Link href="/register" className="nav-items">Register</Nav.Link>
         </Nav>
-
-        <div className="time nav-items fs-5 ml-auto">
-          {date + " " + months[month] + " " + hour + ":" + minute + " " + suffix}
-        </div>
         
         <Nav className="ml-auto mr-5">
           <div className="avatar-box">
