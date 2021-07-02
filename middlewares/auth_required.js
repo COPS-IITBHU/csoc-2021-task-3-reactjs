@@ -1,3 +1,6 @@
-/***
- * @todo Redirect the user to login page if token is not present.
- */
+const token = localStorage.getItem("token");
+export default function auth_required() {
+   if(token){
+       window.location.href="/";
+   }
+}
