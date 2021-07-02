@@ -1,4 +1,15 @@
+import { useState } from "react"
+import { useAuth } from "../context/auth";
+import { useRouter } from "next/router";
+import axios from '../utils/axios'
+
+
 export default function RegisterForm() {
+  
+  const { token, setToken} = useAuth();
+  const [formData, setformData] = useState({name : "", pass : ""});
+  const router = useRouter();
+  console.log(token);
   const login = () => {
     /***
      * @todo Complete this function.
@@ -6,6 +17,47 @@ export default function RegisterForm() {
      * @todo 2. Fetch the auth token from backend and login the user.
      * @todo 3. Set the token in the context (See context/auth.js)
      */
+    const username = formData.name.trim();
+    const password = formData.pass;
+    if(username === "" || password === "")
+    {
+      console.log("Enter fields correctly");
+      return ;
+    }
+    axios({
+      url : "auth/login/",
+      method: "post",
+      data: { username, password }
+    })
+    .then(({ data, status }) => {
+        // displaySuccessToast("Logged in successfully!");
+        // localStorage.setItem("token", data.token);
+        // window.location.href = "/";
+        setToken(data.token);
+        // console.log(token);
+        // console.log(data.token);
+        router.push("/");
+        console.log("Logged In");
+        
+    })
+    .catch((err) => {
+        // displayErrorToast("Log in failed! Please check your credentials.");
+        console.log(err);
+    });
+  }
+
+  const nameChangeHandler = (event) => {
+    setformData({
+      ...formData,
+      name : event.target.value
+    })
+  }
+
+  const passChangeHandler = (event) => {
+    setformData({
+      ...formData,
+      pass : event.target.value
+    })
   }
 
   return (
@@ -19,6 +71,8 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={formData.name}
+            onChange={nameChangeHandler}
           />
 
           <input
@@ -27,6 +81,8 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={formData.pass}
+            onChange={passChangeHandler}
           />
 
           <button

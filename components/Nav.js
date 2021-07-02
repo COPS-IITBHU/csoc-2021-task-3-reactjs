@@ -2,13 +2,18 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
+// import { useRouter } from 'next/router'
 /**
  *
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { token, logout, profileName, avatarImage } = useAuth()
+  // const router = useRouter();
+  // console.log(router.asPath);
+  console.log("rendered");
+  console.log(token);
 
   return (
     <nav className='bg-blue-600'>
@@ -22,15 +27,17 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className='flex'>
+
+        {!token && <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
           </li>
           <li className='text-white'>
             <Link href='/register'>Register</Link>
           </li>
-        </ul>
-        <div className='inline-block relative w-28'>
+        </ul>}
+
+        {token && <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
@@ -55,7 +62,8 @@ export default function Nav() {
               </li>
             </ul>
           </div>
-        </div>
+        </div>}
+        
       </ul>
     </nav>
   )
