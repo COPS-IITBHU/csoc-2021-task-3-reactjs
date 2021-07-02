@@ -3,6 +3,7 @@ import AddTask from "../components/AddTask";
 import { useEffect, useState } from "react";
 import axios from "../utils/axios";
 import { useAuth } from "../context/auth";
+import { displayErrorToast, displayInfoToast, displaySuccessToast, displayWarnToast} from "../pages/_app"
 
 export default function Home() {
   const { token } = useAuth();
@@ -20,21 +21,16 @@ export default function Home() {
       url: "todo/",
       method: "get",
     })
-      .then(function ({ data }) {
-        // iziToast.destroy();
-        console.log(data);
-        setTasks(data);
+    .then(function ({ data }) {
+      setTasks(data);
       })
       .catch(function (err) {
-        console.log(err);
-        // iziToast.error({
-        //   title: "Error",
-        //   message: "Oops Something went wrong!",
-        // });
+        displayErrorToast("There was a problem connecting to the server");
       });
-  }
-
-  useEffect(() => {
+    }
+    
+    useEffect(() => {
+    displayInfoToast("Please Wait! Loading the tasks");
     getTasks();
   }, []);
 

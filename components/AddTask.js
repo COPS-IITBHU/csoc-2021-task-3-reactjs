@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 import { useState } from "react";
 import { useAuth } from "../context/auth";
-import iziToastMin from "../public/iziToast.min";
+import { displayErrorToast, displayInfoToast, displaySuccessToast, displayWarnToast} from "../pages/_app"
 
 export default function AddTask({ refreshTasks }) {
   const [newTodo, setnewTodo] = useState("");
@@ -12,7 +12,9 @@ export default function AddTask({ refreshTasks }) {
   };
 
   const addTask = () => {
-    if (newTodo.trim() === "") {
+    if (newTodo.trim() === "") 
+    {
+      displayWarnToast("Please fill the Input field Correctly!");
       return;
     }
     axios({
@@ -24,23 +26,8 @@ export default function AddTask({ refreshTasks }) {
       data: { title: newTodo.trim() },
     })
     .then(function (response) {
-      axios({
-        headers: {
-          Authorization: "Token " + token,
-        },
-        url: "todo/",
-        method: "get",
-      })
-      .then(function ({ data, status }) {
-        refreshTasks();
-        // displaySuccessToast("Task Added Successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-        // displayErrorToast(
-        //   "We are unable to process the request. TryAgain Later"
-        // );
-      });
+      displaySuccessToast(`Added task "${newTodo}" successfully`);
+      refreshTasks();
       setnewTodo("");
     })
     .catch(function (err) {

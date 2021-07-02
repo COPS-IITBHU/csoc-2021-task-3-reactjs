@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "../utils/axios";
 import { useAuth } from "../context/auth";
+import { displayErrorToast, displayInfoToast, displaySuccessToast, displayWarnToast} from "../pages/_app";
 
 export default function TodoListItem({id, title, refreshTasks}) {
 
@@ -27,15 +28,25 @@ export default function TodoListItem({id, title, refreshTasks}) {
       })
       .then(function ({ data, status }) {
           refreshTasks();
-          // displaySuccessToast("Task deleted Successfully!");
-          // iziToast.success("Task deleted Successfully!");
+          displaySuccessToast("Task deleted Successfully!");
       })
       .catch(function (err) {
-          // displayErrorToast("We are unable to process the request. Please try again later!");
+          displayErrorToast("We are unable to process the request. Please try again later!");
       });
   };
 
   const updateTask = (id) => {
+    if(updatedTodo.trim() === "")                            //No Backend request is made for empty or same task 
+    {
+      displayWarnToast("Please enter the input field correctly");
+      return ;
+    }
+    if(updatedTodo === title)
+    {
+      setedit(false);
+      displaySuccessToast("Task Updated Successfully");
+      return ;
+    }
      axios({
       headers: {
           Authorization: "Token " + token
@@ -44,13 +55,14 @@ export default function TodoListItem({id, title, refreshTasks}) {
       method: "patch",
       data: { title: updatedTodo }
       })
-      .then(function ({ data, status }) {
-          // displaySuccessToast("Task Updated Successfully");
+      .then(function (response) {
+          displaySuccessToast("Task Updated Successfully");
           setedit(false);
+          setupdatedTodo("");
           refreshTasks();
       })
       .catch(function (err) {
-          // displayErrorToast("We are unable to process the request. Please try again     later!");
+          displayErrorToast("We are unable to process the request. Please try again later!");
       });
   };
 

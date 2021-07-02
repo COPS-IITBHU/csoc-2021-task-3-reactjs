@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
 import axios from '../utils/axios'
+import { displayErrorToast, displayInfoToast, displaySuccessToast, displayWarnToast} from "../pages/_app";
 
 
 export default function RegisterForm() {
@@ -12,12 +13,6 @@ export default function RegisterForm() {
   console.log(token);
   const login = (e) => {
     e.preventDefault();
-    /***
-     * @todo Complete this function.
-     * @todo 1. Write code for form validation.
-     * @todo 2. Fetch the auth token from backend and login the user.
-     * @todo 3. Set the token in the context (See context/auth.js)
-     */
     const username = formData.name.trim();
     const password = formData.pass;
     if(username === "" || password === "")
@@ -31,18 +26,13 @@ export default function RegisterForm() {
       data: { username, password }
     })
     .then(({ data, status }) => {
-        // displaySuccessToast("Logged in successfully!");
-        // localStorage.setItem("token", data.token);
-        // window.location.href = "/";
+        displaySuccessToast("Logged in successfully!");
         setToken(data.token);
-        // console.log(token);
-        // console.log(data.token);
         router.push("/");
-        console.log("Logged In");
         
     })
     .catch((err) => {
-        // displayErrorToast("Log in failed! Please check your credentials.");
+        displayErrorToast("Log in failed! Please check your credentials.");
         console.log(err);
     });
   }
