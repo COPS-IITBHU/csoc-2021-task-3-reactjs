@@ -7,30 +7,35 @@ import { useAuth } from '../context/auth'
  * @todo Condtionally render login/register and Profile name in NavBar
  */
 
-export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
+export default function Nav(props) {
+  const { token, logout, profileName, avatarImage } = useAuth()
 
   return (
     <nav className='bg-blue-600'>
       <ul className='flex items-center justify-between p-5'>
         <ul className='flex items-center justify-between space-x-4'>
           <li>
-            <Link href="/" passHref={true}>
+            <Link href="/"  passHref={true}>
               <a>
                 <h1 className='text-white font-bold text-xl'>Todo</h1>
               </a>
             </Link>
           </li>
         </ul>
+        
+
         <ul className='flex'>
-          <li className='text-white mr-2'>
-            <Link href='/login'>Login</Link>
+          <li className='text-white mr-6'>
+          <a href='#'
+                  onClick={logout}
+                > <b>Login</b></a>
           </li>
           <li className='text-white'>
-            <Link href='/register'>Register</Link>
+            <Link href='/register' onClick={logout}><b>Register</b></Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+
+        {(token!="null" && token!=undefined)&&<div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
@@ -53,9 +58,10 @@ export default function Nav() {
                   Logout
                 </a>
               </li>
+
             </ul>
           </div>
-        </div>
+        </div>}
       </ul>
     </nav>
   )
