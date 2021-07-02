@@ -3,13 +3,18 @@
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
 import { Navbar, Nav, Button, Dropdown, DropdownButton, Image } from 'react-bootstrap'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useCookies } from 'react-cookie'
 
 export default function NavBar() {
   const { logout, profileName, avatarImage } = useAuth()
+  const [cookies, setCookies, removeCookies] = useCookies(['auth'])
+  const token = cookies.token
+
+  function loggedIn() {
+    if (token)
+      return true
+    return false
+  }
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
@@ -17,7 +22,7 @@ export default function NavBar() {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginRight: "20px" }}/>
 
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ml-5 fs-5">
+        <Nav className={ loggedIn ? "hideme" : null + "ml-5 fs-5"}>
           <Nav.Link href="/login" className="nav-items">Login</Nav.Link>
           <Nav.Link href="/register" className="nav-items">Register</Nav.Link>
         </Nav>
