@@ -77,8 +77,8 @@ export default function Home() {
 
   return (
     <AuthRequired>
-      <center>
-        <div className="tasks">
+      <div className="tasks">
+        <center>
           <AddTask
             onClick={getTasks}
           />
@@ -99,8 +99,8 @@ export default function Home() {
                 })}
             </div>
           </div>
-        </div>
-      </center>
+        </center>
+      </div>
     </AuthRequired>
   )
 }
