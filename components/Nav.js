@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { useAuth } from '../context/auth'
 import { Navbar, Nav, Button, Dropdown, DropdownButton, Image } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function NavBar() {
-  const { logout, profileName, avatarImage } = useAuth()
+  const { token, logout, profileName, avatarImage } = useAuth()
   const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
+  const [notLoggedIn, setNotLoggedIn] = useState(true)
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   const [date, setDate] = useState(new Date().getDate())
   const [month, setMonth] = useState(new Date().getMonth())
@@ -34,11 +34,13 @@ export default function NavBar() {
 
   setInterval(updateTime, 1000)
 
-  function loggedIn() {
-    if (token)
-      return true
-    return false
-  }
+  useEffect(() => {
+    if (token) {
+      setNotLoggedIn(false)
+    } else {
+      setNotLoggedIn(true)
+    }
+  }, [token])
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
@@ -49,7 +51,7 @@ export default function NavBar() {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ marginRight: "30px" }}/>
 
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className={ loggedIn ? "hideme" : null + "ml-5 fs-5"}>
+        <Nav className={ !notLoggedIn ? "hideme" : null + "ml-5 fs-5"}>
           <Nav.Link href="/login" className="nav-items">Login</Nav.Link>
           <Nav.Link href="/register" className="nav-items">Register</Nav.Link>
         </Nav>

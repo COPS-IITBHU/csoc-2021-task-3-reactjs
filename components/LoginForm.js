@@ -13,8 +13,6 @@ export default function RegisterForm() {
   const [avatarImage, setAvatarImage] = useState('#')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  let name
 
   function validFieldValues(username, password) {
     if (username === '' || password == '')
@@ -62,7 +60,7 @@ export default function RegisterForm() {
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
-      <div className='container max-w-sm mx-auto flex-col items-center justify-center px-2'>
+      <div className='container max-w-sm flex-col items-center justify-center px-5'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Login</h1>
           <input
