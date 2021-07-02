@@ -2,6 +2,7 @@ import { useEffect, useState, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from '../utils/axios'
 import { useRouter } from 'next/router'
+import notif from '../components/Notif';
 
 const AuthContext = createContext({})
 
@@ -9,13 +10,16 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter()
   const [profileName, setProfileName] = useState('')
   const [avatarImage, setAvatarImage] = useState('#')
-  const [cookies, setCookies, removeCookies] = useCookies(['auth'])
+  const [cookies, setCookies, removeCookies] = useCookies(['token'])
   const token = cookies.token
 
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
   const logout = () => {
     deleteToken()
+    setProfileName('')
+    setAvatarImage('#')
+    notif('Info','Logging out','info')
     router.push('/login')
   }
 
@@ -36,7 +40,7 @@ export const AuthProvider = ({ children }) => {
           setProfileName(response.data.name)
         })
         .catch((error) => {
-          console.log('Some error occurred')
+          notif('Error','Some error occurred','danger')
         })
     }
   }, [setAvatarImage, setProfileName, token])
