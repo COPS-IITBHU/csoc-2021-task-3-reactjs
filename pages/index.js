@@ -22,6 +22,7 @@ export default function Home() {
     const [profileName, setName] = useState("");
     const [avatarImage, setPhoto] = useState("");
     const [taskList, setTaskList] = useState([]);
+    const [len, setLen] = useState(0);
 
 
 
@@ -117,12 +118,12 @@ export default function Home() {
 
     // this line of code change the title of the page 
     useEffect(()=>{
-        document.title="Index"
+        document.title=`Todo's-Pending(${(taskList.length)})`
     })
     
 
 
-
+    let leng=0
 
 
 
@@ -137,19 +138,23 @@ export default function Home() {
             <center>
                 <JoinTodo addNewTask={addNewTask} />
                 <ul className="flex-col mt-9 max-w-sm mb-3 ">
-                    <span className="inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full ">
-                        Available Tasks
+                    {/* {leng=(taskList.length)} */}
+                    {/* {console.log(leng)} */}
+                    <span className="available inline-block bg-green-600 py-1 mb-2 px-355 text-white font-bold rounded-full ">
+                        Available Todo's : <span className='todo-count'>{(taskList.length)}</span>
                     </span>
                     {taskList.map((task) => (
 
-
+                        
                         <TodoListItem
-                            task={task.title}
-                            id={task.id}
-                            key={task.id}
-                            deleteTask={deleteTask}
+                        task={task.title}
+                        id={task.id}
+                        key={task.id}
+                        deleteTask={deleteTask}
                         />
-                    ))}
+                        ))}
+                        {/* {setLength({taskList}.length)}
+                        {console.log(length)} */}
                 </ul>
             </center>
 

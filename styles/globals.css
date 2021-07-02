@@ -171,7 +171,13 @@ font-size: 90px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   border: 3px solid green;
 }
-
+.available{
+  padding: 4px 20px;
+  font-size: 30px;
+}
+.todo-count{
+  color: yellow;
+}
 .input-field{
   width: 100%;
   border: 2px solid grey;

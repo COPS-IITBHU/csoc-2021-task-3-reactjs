@@ -106,10 +106,15 @@ export default function TodoListItem(props) {
             });
     };
 
-    const[count,setCount]=useState(0)
-    var counter = {};
-    useEffect(()=>{
+    // const[count,setCount]=useState(0)
+    // var counter = [];
+    // useEffect((props)=>{
         
+    //     for( let ele in props){
+    //     counter.push(ele)
+    //     }
+    //     console.log(counter)
+
         // var obj = Object.assign(counter,props)
         // var myobj = JSON.stringify(obj)
         // var myobjlength = myobj.length
@@ -119,15 +124,19 @@ export default function TodoListItem(props) {
 
 
         
-        let str = JSON.stringify(props)
-        let counter =0
-        for (let ob in props){
-            counter++;
-            // console.log(ob.length)
-        }
-        console.log(counter)
-    })
+        // let str = JSON.stringify(props)
+        // let counter =0
+        // for (let ob in props){
+        //     counter++;
+        //     // console.log(ob.length)
+        // }
+        // console.log(counter)
+    // })
 
+
+
+
+    
     // returning whatever we require according to the requirements 
 
     return (
