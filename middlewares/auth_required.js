@@ -12,8 +12,7 @@ const AuthRequired=(props) => {
    useEffect(() => {
     if(!token)
     {
-        console.log(token);
-        router.replace('/');
+        router.replace('/login');
  
     }
     
