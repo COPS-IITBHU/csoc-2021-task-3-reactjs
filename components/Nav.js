@@ -5,6 +5,8 @@ import { useAuth } from '../context/auth'
 import { Navbar, Nav, Button, Dropdown, DropdownButton, Image } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function NavBar() {
   const { token, logout, profileName, avatarImage } = useAuth()
@@ -69,12 +71,21 @@ export default function NavBar() {
                 size="lg"
                 title={profileName}
               >
-                <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    toast.info("Logged out!", {
+                      position: "bottom-right",
+                    })
+                    logout()
+                  }}
+                >Logout
+                </Dropdown.Item>
               </DropdownButton>
             </div>
           </div>
         </Nav>
       </Navbar.Collapse>
+      <ToastContainer />
     </Navbar>
   )
 }

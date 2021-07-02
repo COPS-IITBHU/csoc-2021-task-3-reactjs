@@ -3,6 +3,8 @@ import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
 import { Button } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -41,9 +43,7 @@ export default function Register() {
   const register = (e) => {
     e.preventDefault()
 
-    if (
-      registerFieldsAreValid(firstName, lastName, email, username, password)
-    ) {
+    if (registerFieldsAreValid(firstName, lastName, email, username, password)) {
       console.log('Please wait...')
 
       const dataForApiRequest = {
@@ -58,13 +58,17 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
+          toast.info("Registering...", {
+            position: "bottom-right",
+          })
           setToken(data.token)
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          console.log('An account using same email or username is already created')
+          toast.error("An account using same email or username is already created", {
+            position: "bottom-right",
+          })
         })
     }
   }
@@ -132,6 +136,7 @@ export default function Register() {
           </Button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }

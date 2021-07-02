@@ -5,6 +5,8 @@ import { useAuth } from "../context/auth"
 import { API_URL } from "../utils/constants"
 import { useCookies } from "react-cookie"
 import { Button } from "react-bootstrap"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -31,6 +33,10 @@ export default function RegisterForm() {
   }
 
   const login = () => {
+    toast.info("Logging in...", {
+      position: "bottom-right",
+    })
+    
     if (validFieldValues(username, password)) {
       console.log("logging in...")
 
@@ -51,9 +57,11 @@ export default function RegisterForm() {
         setProfileName(res.data.name)
         name = res.data.name
         router.push('/')
-        console.log("logged in!")
       }).catch(error => {
         console.log(error)
+        toast.error("Login error!", {
+          position: "bottom-right",
+        })
       })
     }
   }
@@ -92,6 +100,7 @@ export default function RegisterForm() {
           </Button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
