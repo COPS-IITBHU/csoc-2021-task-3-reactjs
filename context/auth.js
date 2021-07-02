@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const setToken = (newToken) => {
     setCookies('token', newToken, { path: '/' });
-    setTokenState(token);
+    setTokenState(newToken);
   };
   const deleteToken = () => {removeCookies('token');
   setTokenState(undefined);
