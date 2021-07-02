@@ -22,3 +22,27 @@
 .todo-task {
   max-width: 260px;
 }
+
+.register{
+  text-align:center;
+  padding-top: 20px;
+  color: #053742;
+ 
+}
+
+.signUp:hover{
+  
+  color: #2563ec;
+}
+
+.login{
+  text-align:center;
+  padding-top: 20px;
+  color: #053742;
+ 
+}
+
+.signIn:hover{
+  
+  color: #2563ec;
+}

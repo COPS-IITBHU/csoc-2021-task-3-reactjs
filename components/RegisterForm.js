@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from '../utils/axios'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { store } from 'react-notifications-component';
 
 export default function Register() {
   const { setToken } = useAuth()
@@ -27,11 +29,38 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      // console.log('Please fill all the fields correctly.')
+      store.addNotification({
+        title: "Please fill all the fields correctly.",
+        message:" ",
+        type: "danger",
+        insert: "bottom-right",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: true
+        }
+      });
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      // console.log('Please enter a valid email address.')
+      store.addNotification({
+        title: "Please enter a valid email address.",
+        message:" ",
+        type: "warning",
+        insert: "bottom-right",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: true
+        }
+      });
+      
       return false
     }
     return true
@@ -61,9 +90,23 @@ export default function Register() {
           router.push('/')
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          // console.log(
+          //   'An account using same email or username is already created'
+          // )
+          store.addNotification({
+            title: "An account using same email or username is already created",
+            message:" ",
+            type: "danger",
+            insert: "bottom-right",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 1500,
+              onScreen: true
+            }
+          });
+  
         })
     }
   }
@@ -129,6 +172,7 @@ export default function Register() {
           >
             Register
           </button>
+          <div className='login'>Already registered? <u className='signIn'><Link href='/login' >Sign In</Link></u></div>
         </div>
       </div>
     </div>
