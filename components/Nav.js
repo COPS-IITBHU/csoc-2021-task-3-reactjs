@@ -1,19 +1,10 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-// import { useRouter } from 'next/router'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import { useRouter } from 'next/router'
 
 export default function Nav() {
-  const { token, logout, profileName, avatarImage } = useAuth()
-  // const router = useRouter();
-  // console.log(router.asPath);
-  console.log("rendered");
-  console.log(token);
+  const { logout, profileName, avatarImage } = useAuth()
+  const router = useRouter();
 
   return (
     <nav className='bg-blue-600'>
@@ -28,7 +19,7 @@ export default function Nav() {
           </li>
         </ul>
 
-        {!token && <ul className='flex'>
+        {router.pathname !== "/" && <ul className='flex'>
           <li className='text-white mr-2'>
             <Link href='/login'>Login</Link>
           </li>
@@ -37,7 +28,7 @@ export default function Nav() {
           </li>
         </ul>}
 
-        {token && <div className='inline-block relative w-28'>
+        {router.pathname === "/" && <div className='inline-block relative w-28'>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />
@@ -63,7 +54,7 @@ export default function Nav() {
             </ul>
           </div>
         </div>}
-        
+
       </ul>
     </nav>
   )

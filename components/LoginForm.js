@@ -10,7 +10,8 @@ export default function RegisterForm() {
   const [formData, setformData] = useState({name : "", pass : ""});
   const router = useRouter();
   console.log(token);
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     /***
      * @todo Complete this function.
      * @todo 1. Write code for form validation.

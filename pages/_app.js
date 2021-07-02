@@ -3,7 +3,6 @@ import { AuthProvider } from '../context/auth'
 import Nav from '../components/Nav'
 
 function MyApp({ Component, pageProps }) {
-  // console.log(Component);
   return (
     <AuthProvider>
       <Nav />
