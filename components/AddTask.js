@@ -36,6 +36,8 @@ export default function AddTask() {
            });
            taskRef.current.dispatchEvent(event);
 
+           taskRef.current.value = '';
+           taskRef.current.focus();
            setState('success');
            setText("Task Added Successfully");
            setSpinner(false);
