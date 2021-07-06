@@ -8,7 +8,7 @@ import Script from 'next/script'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 
 export default function Register() {
-  const { setToken } = useAuth()
+  const { setToken,getToken } = useAuth()
   const router = useRouter()
 
   const [firstName, setFirstName] = useState('')
@@ -42,15 +42,14 @@ export default function Register() {
   }
 
   useEffect(() => {
-    checkLogin()
+    checkLogin(getToken())
+    try{ iziToast.destroy(); iziToast.info({ title: "Info", message: 'Register Now' }) } catch{}
   }, [])
 
   const register = (e) => {
     e.preventDefault()
 
-    if (
-      registerFieldsAreValid(firstName, lastName, email, username, password)
-    ) {
+    if ( registerFieldsAreValid(firstName, lastName, email, username, password) ) {
       try { iziToast.show({ title: "Wait", message: 'Checking Your Credentials' }) } catch {}
 
       const dataForApiRequest = {

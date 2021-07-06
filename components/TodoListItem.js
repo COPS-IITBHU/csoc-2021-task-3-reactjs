@@ -2,7 +2,7 @@
 import ListItem from './ListItem'
 import axios from 'axios'
 
-export default function TodoListItem({ todos, settodos }) {
+export default function TodoListItem({ todos, settodos, tk }) {
   const API_BASE_URL = 'https://todo-app-csoc.herokuapp.com/'
   const editTask = (id) => {
     /**
@@ -24,7 +24,7 @@ export default function TodoListItem({ todos, settodos }) {
     try { iziToast.show({ title: "Wait", message: 'Deleting Todo..' }) } catch { }
     axios({
       headers: {
-        Authorization: 'Token ' + document.cookie.substring(6)
+        Authorization: 'Token ' + tk
       },
       url: API_BASE_URL + 'todo/' + id + '/',
       method: 'delete',
@@ -46,13 +46,13 @@ export default function TodoListItem({ todos, settodos }) {
       document.getElementById('task-' + id).innerHTML = document.getElementById('input-button-' + id).value;
       const data1 = { "id": id, title: document.getElementById('input-button-' + id).value }
       axios({
-        headers: { Authorization: 'Token ' + document.cookie.substring(6) },
+        headers: { Authorization: 'Token ' + tk },
         url: API_BASE_URL + 'todo/' + id + '/',
         method: 'patch',
         data: {
           title: document.getElementById('input-button-' + id).value
         }
-      }).then(() => { settodos(todos.map((todo) => (todo.id === id) ? data1 : todo)); try { iziToast.destroy(); iziToast.success({ title: "Success", message: 'Todo Updated' }) } catch { } }).catch((err) => { try { iziToast.error({ title: "Error", message: 'Cannot Update Todo' }) } catch { } })
+      }).then(() => { document.getElementById('input-button-' + id).value='';settodos(todos.map((todo) => (todo.id === id) ? data1 : todo)); try { iziToast.destroy(); iziToast.success({ title: "Success", message: 'Todo Updated' }) } catch { } }).catch((err) => { try { iziToast.error({ title: "Error", message: 'Cannot Update Todo' }) } catch { } })
     }
   }
 

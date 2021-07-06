@@ -14,17 +14,18 @@ export const AuthProvider = ({ children }) => {
 
   const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
   const deleteToken = () => removeCookies('token')
+  const getToken = () => (cookies.token)
   const logout = () => {
     deleteToken()
-    router.push('/login')
+    window.location.href='./login'
   }
 
   useEffect(() => {
-    if (document.cookie!='') {
+    if (cookies.token!='') {
       axios
         .get('auth/profile/', {
           headers: {
-            Authorization: 'Token ' + document.cookie.substring(6),
+            Authorization: 'Token ' + cookies.token,
           },
         })
         .then((response) => {
@@ -35,9 +36,7 @@ export const AuthProvider = ({ children }) => {
           )
           setProfileName(response.data.name)
         })
-        .catch((error) => {
-          console.log('Some error occurred')
-        })
+        .catch((error) => {})
     }
   }, [setAvatarImage, setProfileName, token])
 
@@ -46,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         token,
         setToken,
+        getToken,
         deleteToken,
         profileName,
         setProfileName,

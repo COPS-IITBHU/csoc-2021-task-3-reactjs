@@ -1,5 +1,5 @@
 import axios from 'axios'
-export default function AddTask({todos,settodos}) {
+export default function AddTask({todos,settodos,tk}) {
   const addTask = () => {
     /**
      * @todo Complete this function.
@@ -12,7 +12,7 @@ export default function AddTask({todos,settodos}) {
     { try { iziToast.show({ title: "Wait", message: 'Adding Todo' }) } catch { } }
     axios({
       headers: {
-        Authorization: 'Token ' + document.cookie.substring(6),
+        Authorization: 'Token ' + tk,
       },
       method: 'post',
       url: API_BASE_URL + 'todo/create/',
@@ -23,7 +23,7 @@ export default function AddTask({todos,settodos}) {
       { try { iziToast.success({ title: "Success", message: 'Added Todo' }) } catch { } }
       document.querySelector('.todo-add-task-input').value = ''
       axios({
-        headers: { Authorization: 'Token ' + document.cookie.substring(6), },
+        headers: { Authorization: 'Token ' + tk, },
         url: API_BASE_URL + 'todo/',
         method: 'get',
       }).then((res) => settodos(res.data))

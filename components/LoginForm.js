@@ -4,9 +4,10 @@ import { useAuth } from '../context/auth'
 import { useEffect} from 'react'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import checkLogin from '../middlewares/no_auth_required'
+import router from 'next/router'
 
 export default function RegisterForm() {
-  const { setToken } = useAuth()
+  const { setToken,getToken } = useAuth()
   const login = () => {
     /***
      * @todo Complete this function.
@@ -28,7 +29,6 @@ export default function RegisterForm() {
       method: 'post',
       data: dataForApiRequest,
     }).then(function ({ data, status }) {
-      // localStorage.setItem('token', data.token);
       setToken(data.token)
       window.location.href = '/';
     }).catch(function (err) {
@@ -37,7 +37,8 @@ export default function RegisterForm() {
   }
 
   useEffect(() => {
-    checkLogin()
+    checkLogin(getToken())
+    try{ iziToast.destroy(); iziToast.info({ title: "Info", message: 'Login Now' }) } catch{}
   }, [])
 
   return (
