@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import axios from '../utils/axios'
+import { useEffect} from 'react'
 import { useAuth } from '../context/auth'
 import { useRouter } from 'next/router'
+import checkLogin from '../middlewares/no_auth_required'
+import Script from 'next/script'
+import '../node_modules/izitoast/dist/css/iziToast.min.css'
 
 export default function Register() {
-  const { setToken } = useAuth()
+  const { setToken,getToken } = useAuth()
   const router = useRouter()
 
   const [firstName, setFirstName] = useState('')
@@ -27,23 +31,26 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
+      try{iziToast.destroy();iziToast.error({ title: "Error", message: 'All Fields Are Mandatory' }) }catch {}
       return false
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      console.log('Please enter a valid email address.')
+      try{iziToast.destroy();iziToast.error({ title: "Error", message: 'Enter a valid Email Address' }) }catch {}
       return false
     }
     return true
   }
 
+  useEffect(() => {
+    checkLogin(getToken())
+    try{ iziToast.destroy(); iziToast.info({ title: "Info", message: 'Register Now' }) } catch{}
+  }, [])
+
   const register = (e) => {
     e.preventDefault()
 
-    if (
-      registerFieldsAreValid(firstName, lastName, email, username, password)
-    ) {
-      console.log('Please wait...')
+    if ( registerFieldsAreValid(firstName, lastName, email, username, password) ) {
+      try { iziToast.show({ title: "Wait", message: 'Checking Your Credentials' }) } catch {}
 
       const dataForApiRequest = {
         name: firstName + ' ' + lastName,
@@ -58,18 +65,17 @@ export default function Register() {
       )
         .then(function ({ data, status }) {
           setToken(data.token)
-          router.push('/')
+          window.location.href = '/';
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          try{iziToast.destroy();iziToast.error({ title: "Error", message: 'An account using same email or username is already created' }) }catch {}
         })
     }
   }
 
   return (
     <div className='bg-grey-lighter min-h-screen flex flex-col'>
+      <Script src='https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js'></Script>
       <div className='container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2'>
         <div className='bg-white px-6 py-8 rounded shadow-md text-black w-full'>
           <h1 className='mb-8 text-3xl text-center'>Register</h1>
