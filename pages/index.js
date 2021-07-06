@@ -23,7 +23,11 @@ export default function Home() {
                 message: "Loading all todos"
             });
         } catch (e) {
-            console.error(e);
+            iziToast.destroy();
+            iziToast.error({
+                title: "Error",
+                message: "An error occurred"
+            });
         }
         axios({
             headers: {
@@ -50,14 +54,14 @@ export default function Home() {
             });
     }
 
-    const addNewTask = (task) => {
+    const addNewTask = task => {
         const temp = [...taskList, task];
         setTaskList(temp);
     };
 
-    const deleteTask = (id) => {
+    const deleteTask = id => {
         let temp = [...taskList];
-        temp = temp.filter((task) => {
+        temp = temp.filter(task => {
             return task.id != id;
         });
         setTaskList(temp);
@@ -80,7 +84,7 @@ export default function Home() {
                     Authorization: "Token " + app.token
                 }
             })
-            .then((response) => {
+            .then(response => {
                 setAvatarImage(
                     "https://ui-avatars.com/api/?name=" +
                         response.data.name +
@@ -89,11 +93,8 @@ export default function Home() {
                 setProfileName(response.data.name);
                 getTasks();
             })
-            .catch((error) => {
-                console.log(error);
-                if (typeof document != "object") {
-                    console.log("An error occurred");
-                } else {
+            .catch(error => {
+                if (typeof document == "object") {
                     iziToast.destroy();
                     iziToast.error({
                         title: "Error",
@@ -113,7 +114,7 @@ export default function Home() {
                     <span className="inline-block bg-blue-600 py-1 mb-2 px-9 text-sm text-white font-bold rounded-full ">
                         Available Tasks
                     </span>
-                    {taskList.map((task) => (
+                    {taskList.map(task => (
                         <TodoListItem
                             task={task.title}
                             id={task.id}
