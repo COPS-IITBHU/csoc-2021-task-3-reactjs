@@ -27,7 +27,8 @@ export default function TodoListItem(props) {
 
   const updateTask = (id) => {
     if (!Newdata) {
-        return;
+      toast.error("Please enter new task!",{position: toast.POSITION.BOTTOM_RIGHT});
+      return;
     }
     axios
         .patch(API_BASE_URL + "todo/" + id + "/",{ title: Newdata },config)
