@@ -27,7 +27,7 @@ export default function TodoListItem(props) {
 
   const updateTask = (id) => {
     if (!Newdata) {
-      toast.error("Please enter new task!",{position: toast.POSITION.BOTTOM_RIGHT});
+      toast.warning("Please enter new task!",{position: toast.POSITION.BOTTOM_RIGHT});
       return;
     }
     axios
