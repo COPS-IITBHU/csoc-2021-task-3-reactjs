@@ -1,6 +1,7 @@
 
-export function Authorized(token){
+export function Authorized(homepage,token,setpagetype){
  if (token) {
-    console.log("Welcome Back!");
+   setpagetype("HOME");
+   homepage();
  }
 }
