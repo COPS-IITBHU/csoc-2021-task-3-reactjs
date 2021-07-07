@@ -2,19 +2,20 @@ import axios from '../utils/axios';
 import { useAuth } from '../context/auth'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 
 toast.configure()
 export default function RegisterForm() {
   const { login,API_BASE_URL,setpagetype } = useAuth()
   useEffect(()=>{setpagetype("LOGIN");return;},[])
+  const [user_name, setuser_name] = useState("");
+  const [user_pass, setuser_pass] = useState("");
   const loginnow = () => {
-    const user_name = document.getElementById("inputUsername").value.trim();
-    const user_pass = document.getElementById("inputPassword").value;
     if (user_name == "" || user_pass == "") {
         toast.error("Please fill the empty fields.",{position: toast.POSITION.BOTTOM_RIGHT})
         return;
     }
+    setuser_name(user_name.trim());
     toast.info("Checking credentials...",{position: toast.POSITION.BOTTOM_RIGHT})
     axios
         .post(API_BASE_URL + "auth/login/",{
@@ -42,6 +43,8 @@ export default function RegisterForm() {
             name='inputUsername'
             id='inputUsername'
             placeholder='Username'
+            value={user_name}
+            onChange={(e)=>{setuser_name(e.target.value)}}
           />
 
           <input
@@ -50,6 +53,8 @@ export default function RegisterForm() {
             name='inputPassword'
             id='inputPassword'
             placeholder='Password'
+            value={user_pass}
+            onChange={(e)=>{setuser_pass(e.target.value)}}
           />
 
           <button
