@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import axios from '../utils/axios'
-import { useAuth } from '../context/auth'
-import { useRouter } from 'next/router'
+import React, { useState } from 'react';
+import axios from '../utils/axios';
+import { useAuth } from '../context/auth';
+import { useRouter } from 'next/router';
 
 export default function Register() {
-  const { setToken } = useAuth()
-  const router = useRouter()
+  const { setToken } = useAuth();
+  const router = useRouter();
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const registerFieldsAreValid = (
     firstName,
@@ -27,8 +27,12 @@ export default function Register() {
       username === '' ||
       password === ''
     ) {
-      console.log('Please fill all the fields correctly.')
-      return false
+      iziToast.destroy();
+      iziToast.info({
+        title:"Info",
+        message:"Please Enter valid details"
+      });
+      return false;
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       console.log('Please enter a valid email address.')
@@ -57,13 +61,16 @@ export default function Register() {
         dataForApiRequest,
       )
         .then(function ({ data, status }) {
-          setToken(data.token)
-          router.push('/')
+          setToken(data.token);
+          router.push('/');
         })
         .catch(function (err) {
-          console.log(
-            'An account using same email or username is already created'
-          )
+          iziToast.destroy();
+          iziToast.error({
+            title:"Error",
+            message:"An account using same email or username is already created"
+          })
+         
         })
     }
   }

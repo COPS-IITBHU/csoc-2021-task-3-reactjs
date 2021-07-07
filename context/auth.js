@@ -1,22 +1,31 @@
-import { useEffect, useState, useContext, createContext } from 'react'
-import { useCookies } from 'react-cookie'
-import axios from '../utils/axios'
-import { useRouter } from 'next/router'
+import { useEffect, useState, useContext, createContext } from 'react';
+import { useCookies } from 'react-cookie';
+import axios from '../utils/axios';
+import { useRouter } from 'next/router';
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter()
-  const [profileName, setProfileName] = useState('')
-  const [avatarImage, setAvatarImage] = useState('#')
-  const [cookies, setCookies, removeCookies] = useCookies(['auth'])
-  const token = cookies.token
+  const router = useRouter();
+  const [profileName, setProfileName] = useState('');
+  const [avatarImage, setAvatarImage] = useState('#');
+  const [cookies, setCookies, removeCookies] = useCookies(['auth']);
+  const [token,setTokenState]=useState(cookies.token);
 
-  const setToken = (newToken) => setCookies('token', newToken, { path: '/' })
-  const deleteToken = () => removeCookies('token')
+  const setToken = (newToken) => {
+    setCookies('token', newToken, { path: '/' });
+    setTokenState(newToken);
+  };
+  const deleteToken = () => {removeCookies('token');
+  setTokenState(undefined);
+}
   const logout = () => {
-    deleteToken()
-    router.push('/login')
+    deleteToken();
+    router.push('/login');
+    iziToast.destroy();
+    iziToast.success({
+      message:"Logged You Out"
+    })
   }
 
   useEffect(() => {
@@ -32,14 +41,15 @@ export const AuthProvider = ({ children }) => {
             'https://ui-avatars.com/api/?name=' +
               response.data.name +
               '&background=fff&size=33&color=007bff'
-          )
-          setProfileName(response.data.name)
+          );
+          setProfileName(response.data.name);
         })
         .catch((error) => {
-          console.log('Some error occurred')
+          console.log(token);
+          console.log('Some error occurred');
         })
     }
-  }, [setAvatarImage, setProfileName, token])
+  }, [setAvatarImage, setProfileName, token]);
 
   return (
     <AuthContext.Provider
