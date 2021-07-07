@@ -14,9 +14,7 @@ export function NotAuthorized(token){
         }
         else{
             toast.success("Welcome!!!",{position: toast.POSITION.BOTTOM_RIGHT} );
-            homepage();
-            setpagetype("HOME");
-            Authorized(token);
+            Authorized(homepage,token,setpagetype);
         }
     },[token]);
 }
