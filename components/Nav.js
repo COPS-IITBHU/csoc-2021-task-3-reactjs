@@ -1,15 +1,34 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useAuth } from '../context/auth'
-/**
- *
- * @todo Condtionally render login/register and Profile name in NavBar
- */
+import {useState,useEffect } from 'react'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
+toast.configure()
 export default function Nav() {
-  const { logout, profileName, avatarImage } = useAuth()
-
+  const { logout, profileName, avatarImage,pagetype,setpagetype,token } = useAuth();
+  const [showlogin, setShowlogin] = useState(false);
+  const [showregister, setShowregister] = useState(false);
+  const [showavtar, setShowavtar] = useState(true);
+  
+  function pagechange(){
+    if(pagetype=="HOME"){
+      setShowlogin(false);
+      setShowregister(false);
+      setShowavtar(true);
+    }
+    if(pagetype=="LOGIN"){
+      setShowlogin(false);
+      setShowregister(true);
+      setShowavtar(false);
+    }
+    if(pagetype=="REGISTER"){
+      setShowlogin(true);
+      setShowregister(false);
+      setShowavtar(false);
+    }
+  }
+  useEffect(() => {pagechange()},[pagetype]);
   return (
     <nav className='bg-blue-600'>
       <ul className='flex items-center justify-between p-5'>
@@ -23,14 +42,14 @@ export default function Nav() {
           </li>
         </ul>
         <ul className='flex'>
-          <li className='text-white mr-2'>
+          <li className='text-white mr-2' style ={{display: (showlogin?"":"none")}}>
             <Link href='/login'>Login</Link>
           </li>
-          <li className='text-white'>
+          <li className='text-white' style ={{display: (showregister?"":"none")}}>
             <Link href='/register'>Register</Link>
           </li>
         </ul>
-        <div className='inline-block relative w-28'>
+        <div className='inline-block relative w-28' style ={{display: (showavtar?"":"none")}}>
           <div className='group inline-block relative'>
             <button className='bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center'>
               <img src={avatarImage} />

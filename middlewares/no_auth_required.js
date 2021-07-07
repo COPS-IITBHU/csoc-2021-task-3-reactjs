@@ -1,3 +1,7 @@
-/***
- * @todo Redirect the user to main page if token is present.
- */
+
+export function Authorized(homepage,token,setpagetype){
+ if (token) {
+   setpagetype("HOME");
+   homepage();
+ }
+}
