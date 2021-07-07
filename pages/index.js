@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import axios from '../utils/axios';
 import { useAuth } from '../context/auth';
 import Script from 'next/script';
-//import iziToast from 'izitoast';
 import AuthRequired  from '../middlewares/auth_required.js';
-import router from 'next/router';
 
 export default function Home() {
   const { token,setAvatarImage,setProfileName } = useAuth();
@@ -29,7 +27,6 @@ export default function Home() {
       }
     })
     .then((res) => {
-      console.log(token);
       setTaskList(res.data);
       iziToast.destroy();
       iziToast.success({
@@ -76,7 +73,11 @@ export default function Home() {
           getTasks();
         })
         .catch((error) => {
-          console.log('Some error occurred');
+          iziToast.destroy();
+          iziToast.error({
+            title:"Error",
+            message:"Some Error Occurred"
+          })
         })
     }
   }, []);

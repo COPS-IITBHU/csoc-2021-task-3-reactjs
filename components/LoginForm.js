@@ -52,7 +52,6 @@ export default function RegisterForm() {
       })
       .then(
         ({data}) => {
-          console.log(data.token);
           setToken(data.token);
           iziToast.destroy();
           iziToast.success({
@@ -63,7 +62,6 @@ export default function RegisterForm() {
     })
       .catch(
         (err) => {
-          console.error(err);
           iziToast.destroy();
           iziToast.error({
             title:"Error",

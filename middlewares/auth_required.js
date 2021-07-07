@@ -13,7 +13,7 @@ const AuthRequired=(props) => {
     if(!token)
     {
         console.log(token);
-        router.replace('/');
+        router.replace('/login');
  
     }
     
