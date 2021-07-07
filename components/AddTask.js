@@ -11,6 +11,7 @@ export default function AddTask() {
   const addTask = (e) => {
     e.preventDefault()
     if (!Todotxt || Todotxt=="") {
+        toast.error("No task entered!",{position: toast.POSITION.BOTTOM_RIGHT});
         return;
     }
     axios
