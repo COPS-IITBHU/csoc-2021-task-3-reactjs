@@ -1,14 +1,13 @@
-import '../styles/globals.css'
-import { AuthProvider } from '../context/auth'
-import Nav from '../components/Nav'
+import "../styles/globals.css";
+import "izitoast/dist/css/iziToast.min.css";
+import { AppWrapper } from "../context/AppContext";
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <AuthProvider>
-      <Nav />
-      <Component {...pageProps} />
-    </AuthProvider>
-  )
+    return (
+        <AppWrapper>
+            <Component {...pageProps} />
+        </AppWrapper>
+    );
 }
 
-export default MyApp
+export default MyApp;
