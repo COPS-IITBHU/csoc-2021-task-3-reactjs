@@ -97,6 +97,7 @@ export default function RegisterForm() {
                         placeholder="Last Name"
                     />
 
+
                     <input
                         type="email"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
